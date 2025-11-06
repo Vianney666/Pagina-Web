@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resgistro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        body {
+            background: url(fondoRn.png) no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+        }
+        .register-container {
+            background: rgba(255, 255, 255, 0.658);
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0.4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 350px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            color: black;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 0.9em;
+            color: black;
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+            border-radius: 30px;
+            font-size: 0.95em;
+            outline: none;
+            transition: 0.3;
+        }
+        input:focus {
+            border-color: #588157;
+            box-shadow: 0 0 5px #498a48;
+        }
+        input-error {
+            border-color: red;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+        }
+        .btn-register {
+            background-color: #588157;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn-register:hover {
+            background-color: #3a5a40;
+        }
+        .login-link {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        .login-link a {
+            color: #588157;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3;
+        }
+        .login-link a:hover {
+            color: #3a5a40;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Crear cuenta</h1>
+        <form id="registroForm">
+            <div class="input-group">
+                <label for="usuario">Usuario</label>
+                <input type="text" id="usuario" placeholder="Crea un nombre de usuario">
+            </div>
+            <div class="input-group">
+                <label for="correo">Correo electronico</label>
+                <input type="email" id="correo" placeholder="ejemplo@correo.com">
+            </div>
+            <div class="input-group">
+                <label for="telefono">Telefono</label>
+                <input type="tel" id="telefono" placeholder="Ej. 5544332211">
+            </div>
+            <div class="input-group">
+                <label for="password">Crear contraseña</label>
+                <input type="password" id="password" placeholder="Crea una contraseña">
+            </div>
+            <div class="input-group">
+                <label for="confirmar">Confirmar contraseña</label>
+                <input type="confirmar" id="confrimar" placeholder="Repite la contraseña">
+            </div>
+            <button type="submit" class="btn-register">Registrarse</button>
+        </form>
+        <div class="login-link">
+            ¿Ya tienes una cuenta? <a href="CanchibolI.html">Inicia Sesion</a>
+        </div>
+    </div>
+    <script>
+        const form=document.getElementById('registroForm');
+        form.addEventListener('submit',(e)=> {
+            const usario=document.getElementById('usuario');
+            const correo=document.getElementById('correo');
+            const telefono=document.getElementById('telefono');
+            const password=document.getElementById('password');
+            const confirmar=document.getElementById('confirmar');
+
+            let valido=true;
+            const marcaError=(campo)=> {
+                campo.classList.add('error');
+                valido=false;
+            };
+            const limpiarError=(campo)=>{
+                campo.classList.remove('error');
+            };
+            [usuario, correo, telefono, password, confirmar].forEach(limpiarError);
+            [usuario, correo, telefono, password, confirmar].forEach((campo)=>{
+                if(!campo.value.trim())marcaError(campo);
+            });
+            if (password.value.trim()&&confirmar.value.trim()&&password.value !==confirmar.value){
+                marcarError(password);
+                marcarError(confirmar);
+                alert("Las contraseñas no coinciden");
+            }
+            if(valido&&password.value===confirmar.value){
+                window.open("ppppp");
+            }
+        });
+    </script>
+</body>
+</html>
