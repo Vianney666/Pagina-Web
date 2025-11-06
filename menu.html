@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administración de Canchas de Fútbol</title>
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <a class="logo-class" href="index.html">
+        <img src="img/logo_canchas.png" alt="Logo de pagina">
+      </a>
+    </div>
+    <h1>Administración de Canchas de Fútbol</h1>
+    <nav>
+      <ul>
+        <li><a href="#arbitros">Árbitros</a></li>
+        <li><a href="#equipos">Equipos</a></li>
+        <li><a href="#canchas">Canchas</a></li>
+        <li><a href="#partidos">Partidos</a></li>
+        <li><a href="#reportes">Reportes</a></li>
+          <li><a href="#usuarios">Usuarios</a></li>
+          <li id="sesion-item"><a href="#sesion">Cerrar Sesión</a></li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="dashboard" class="modulo">
+      <h2>Panel Principal</h2>
+      <div class="tarjetas">
+        <div class="card">Partidos de Hoy: <strong>0</strong></div>
+        <div class="card">Árbitros Disponibles: <strong>0</strong></div>
+        <div class="card">Canchas Libres: <strong>0</strong></div>
+      </div>
+    </section>
+
+    <section id="arbitros" class="modulo">
+      <h2>Gestión de Árbitros</h2>
+      <form class="formulario">
+        <input type="text" placeholder="Nombre del árbitro" />
+        <input type="text" placeholder="Teléfono" />
+        <input type="email" placeholder="Correo" />
+        <select>
+          <option>Disponible</option>
+          <option>No disponible</option>
+        </select>
+        <button>Guardar</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Juan Pérez</td><td>555-1234</td><td>juan@mail.com</td><td>Disponible</td><td>Editar / Eliminar</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="equipos" class="modulo">
+      <h2>Gestión de Equipos</h2>
+      <form class="formulario">
+        <input type="text" placeholder="Nombre del equipo" />
+        <input type="text" placeholder="Representante" />
+        <input type="text" placeholder="Teléfono de contacto" />
+        <button>Guardar</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr><th>Equipo</th><th>Representante</th><th>Teléfono</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Tigres FC</td><td>Pedro López</td><td>555-4321</td><td>Editar / Eliminar</td></tr>
+          <tr><td>Atlas FC</td><td>Juan Perez</td><td>555-1234</td><td>Editar / Eliminar</td></tr>
+
+        </tbody>
+      </table>
+    </section>
+
+    <section id="canchas" class="modulo">
+      <h2>Gestión de Canchas</h2>
+      <form class="formulario">
+        <input type="text" placeholder="Nombre o número de cancha" />
+        <select>
+          <option>Disponible</option>
+          <option>Ocupada</option>
+          <option>Mantenimiento</option>
+        </select>
+        <button>Guardar</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr><th>Cancha</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cancha 1</td><td>Disponible</td><td>Editar / Eliminar</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="partidos" class="modulo">
+      <h2>Gestión de Partidos</h2>
+      <form class="formulario">
+        <input type="date" />
+        <input type="time" />
+        <select><option>Cancha 1</option><option>Cancha 2</option></select>
+        <select><option>Árbitro 1</option><option>Árbitro 2</option></select>
+        <input type="text" placeholder="Equipo 1" />
+        <input type="text" placeholder="Equipo 2" />
+        <button>Guardar</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Hora</th><th>Cancha</th><th>Árbitro</th><th>Equipos</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2025-11-10</td><td>10:00</td><td>Cancha 1</td><td>Juan Pérez</td><td>Tigres vs Lobos</td><td>Editar / Eliminar</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="reportes" class="modulo">
+      <h2>Reportes</h2>
+      <form class="formulario">
+        <label>Tipo de reporte:</label>
+        <select>
+          <option>Árbitros</option>
+          <option>Partidos</option>
+          <option>Canchas</option>
+        </select>
+        <button>Generar</button>
+      </form>
+    </section>
+
+    <section id="usuarios" class="modulo">
+      <h2>Gestión de Usuarios</h2>
+      <form class="formulario">
+        <input type="text" placeholder="Nombre" />
+        <input type="text" placeholder="Usuario" />
+        <input type="password" placeholder="Contraseña" />
+        <select>
+          <option>Administrador</option>
+          <option>Empleado</option>
+        </select>
+        <button>Guardar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Administración de Canchas de Fútbol - Proyecto académico</p>
+  </footer>
+</body>
+</html>

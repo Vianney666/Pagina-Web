@@ -1,0 +1,180 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+
+  /* Fondo con imagen + degradado verde translúcido */
+  background: 
+    url("img/Balon.png"); /* tu imagen */
+    
+  background-size: cover;       
+  background-position: center;    
+  background-attachment: fixed;    
+  color: #DAD7CD;                 
+}
+
+/* Encabezado principal */
+header {
+background: rgba(34, 41, 31, 0.8);
+  color: white;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* Menú de navegación */
+nav {
+  position: relative; /* permite posicionar el elemento a la derecha */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* centra los demás elementos */
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 0;
+}
+
+nav ul li a {
+  color: #DAD7CD;
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: rgba(201, 191, 191, 0.15);
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #4c4f47;
+  color: #344E41;
+}
+
+/* === CERRAR SESIÓN === */
+#sesion-item {
+  position: absolute; /* lo saca del flujo normal */
+  right: 20px;         /* lo coloca a la derecha */
+  top: 0;              /* alinea con la parte superior del nav */
+}
+
+#sesion-item a {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+/* Contenedor principal */
+main {
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* Tarjetas y módulos */
+.modulo {
+  background: rgba(255, 255, 255, 0.75); /* fondo blanco con transparencia */
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+h2 {
+  color: #3A5A40;
+  border-bottom: 3px solid #A3B18A;
+  padding-bottom: 5px;
+}
+
+/* Formularios */
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.formulario input,
+.formulario select,
+.formulario button {
+  padding: 8px;
+  border: 1px solid #A3B18A;
+  border-radius: 6px;
+  flex: 1 1 180px;
+}
+
+.formulario input:focus,
+.formulario select:focus {
+  outline: 2px solid #588157;
+}
+
+.formulario button {
+  background-color: #3A5A40;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.formulario button:hover {
+  background-color: #588157;
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table th, table td {
+  border: 1px solid #A3B18A;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  background-color: #588157;
+  color: rgb(53, 51, 51);
+}
+
+table tr:nth-child(even) {
+  background-color: rgba(218, 215, 205, 0.5);
+}
+
+tbody td {
+  color: #454444;
+}
+label{
+  color: #454444;
+}
+
+/* Tarjetas del dashboard */
+.tarjetas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #588157;
+  color: white;
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background-color: #3A5A40;
+}
+
+/* Pie de página */
+footer {
+ background: rgba(128, 127, 127, 0.45); /* fondo blanco con transparencia */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 30px;
+  font-size: 0.9em;
+
+}
