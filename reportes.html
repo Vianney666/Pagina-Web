@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar comentarios</title>
+  <!-- Vinculación del CSS externo -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="modal-overlay">
+  <div class="modal-window">
+    <span class="modal-close">&times;</span>
+    <h2>Enviar comentarios</h2>
+    <p>Dinos si hubo alguna inconformidad.</p>
+
+    <label for="area">Elige un área</label>
+    <select id="area">
+      <option>Reportes Generales</option>
+      <option>Reporte a un arbitro</option>
+      <option>Reporte a un equipo</option>
+    </select>
+
+    <label for="detalles">Detalles</label>
+    <textarea id="detalles" rows="4" placeholder="Incluye toda la información posible..."></textarea>
+
+   
+
+    <div class="modal-buttons">
+      <button class="modal-cancel">Cancelar</button>
+      <button class="modal-send">Enviar</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
