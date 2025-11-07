@@ -44,6 +44,7 @@
             font-size: 0.9em;
             color: black;
             margin-bottom: 5px;
+            display: block;
         }
         input {
             padding: 10px;
@@ -56,6 +57,29 @@
         input:focus {
             border-color: #588157;
             box-shadow: 0 0 5px rgba(0, 180, 216, 0.5);
+        }
+        .password-toggle {
+            position: relative;
+        }
+        .toggle-btn {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .error-msg {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 3px;
+            display: none;
+        }
+        .checkbox-group {
+            text-align: left;
+            font-size: 0.9em;
+            margin-bottom: 15px;
         }
         .btn-login {
             background-color: #588157;
@@ -71,6 +95,7 @@
         .btn-login:hover {
             background-color: #588157;
         }
+        
         .register-link {
             color: #0077b6;
             text-decoration: none;
@@ -86,10 +111,12 @@
 <body>
     <div class="login-container">
         <h1>Iniciar Sesion</h1>
+        <form id="loginForms">
         <form action="#" method="post">
             <div class="input-group">
-                <label for="usuario">Usuario</label>
+                <label for="usuario">Usuario o Correo</label>
                 <input type="text" id="usuario" name="usuario" placeholder="Ingresa tu usario" required>
+                <span class="error-msg" id="usuario-error">Campo obligatorio</span>
             </div>
             <br>
             <div class="input-group">
