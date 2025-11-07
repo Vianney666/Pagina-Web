@@ -36,7 +36,7 @@ header {
 
 .logo-class {
   position: absolute;
-  left: 20px; /* ubica logo al lado izquierdo */
+  left: 20px; 
 }
 
 .logo-class img {
@@ -53,11 +53,11 @@ header h1 {
   text-align: center;
 }
 
-/* === FILA INFERIOR (menú + cerrar sesión) === */
+
 .header-bottom {
   width: 100%;
   display: flex;
-  justify-content: space-between; /* separa menú y botón de cerrar sesión */
+  justify-content: space-between; 
   align-items: center;
   margin-top: 40px;
 }
@@ -85,9 +85,9 @@ nav ul li a:hover {
   color: #344E41;
 }
 
-/* === CERRAR SESIÓN === */
+
 #sesion-item a {
-  background-color: rgba(255, 0, 0, 0.3);
+  background-color: #3c3d3b;
   padding: 8px 12px;
   border-radius: 6px;
   text-decoration: none;
@@ -98,20 +98,22 @@ nav ul li a:hover {
 #sesion-item a:hover {
   background-color: rgba(255, 0, 0, 0.5);
 }
-/* Contenedor principal */
+
 main {
-  padding: 20px;
-  max-width: 1100px;
-  margin: auto;
+  display: block !important;     /* fuerza apilado */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Tarjetas y módulos */
 .modulo {
-  background: rgba(255, 255, 255, 0.75); /* fondo blanco con transparencia */
+  display: block !important;     /* evita que flex los agrupe */
+  width: 100%;
+  background: rgba(255, 255, 255, 0.75);
   border-radius: 10px;
   padding: 20px;
-  margin-bottom: 30px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 900px;              /* opcional: ancho fijo y centrado */
+  margin: 0 auto 30px;
 }
 
 h2 {
@@ -182,21 +184,19 @@ label{
   color: #454444;
 }
 
-/* Tarjetas del dashboard */
 .tarjetas {
   display: flex;
+  justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
 }
 
 .card {
-  background-color: #588157;
-  color: white;
-  flex: 1 1 200px;
-  text-align: center;
-  padding: 15px;
+  flex: 1 1 250px;
+  background-color: #2c5632;
+  padding: 5px;
   border-radius: 10px;
-  transition: transform 0.2s, background 0.3s;
+  text-align: center;
 }
 
 .card:hover {
