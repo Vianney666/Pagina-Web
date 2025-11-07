@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla de Posiciones</title>
+  <link rel="stylesheet" href="style.css"> <!-- tu CSS principal -->
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <div class="logo-class">
+        <img src="img/logo_canchas.png" alt="Logo">
+      </div>
+      <h1>Tabla de Posiciones</h1>
+    </div>
+
+    <div class="header-bottom">
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="reportes.html">Reportes</a></li>
+          <li><a href="estadisticas.html">Estadísticas</a></li>
+        </ul>
+      </nav>
+      <div id="sesion-item"><a href="#">Cerrar Sesión</a></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="tabla-posiciones-contenedor modulo">
+      <h2>Posiciones Generales</h2>
+      <div class="tabla-posiciones-filtros">
+        <label for="temporada">Temporada:</label>
+        <select id="temporada">
+          <option>2025</option>
+          <option>2024</option>
+          <option>2023</option>
+        </select>
+      </div>
+
+      <div class="tabla-posiciones-tabla">
+        <table>
+          <thead>
+            <tr>
+              <th>Posición</th>
+              <th>Equipo</th>
+              <th>JJ</th>
+              <th>JG</th>
+              <th>JE</th>
+              <th>JP</th>
+              <th>GF</th>
+              <th>GC</th>
+              <th>Dif</th>
+              <th>Puntos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Atlético Verde</td>
+              <td>10</td><td>7</td><td>2</td><td>1</td>
+              <td>18</td><td>9</td><td>+9</td><td>23</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Leones FC</td>
+              <td>10</td><td>6</td><td>2</td><td>2</td>
+              <td>17</td><td>11</td><td>+6</td><td>20</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Tigres del Sur</td>
+              <td>10</td><td>5</td><td>3</td><td>2</td>
+              <td>16</td><td>10</td><td>+6</td><td>18</td>
+            </tr>
+             <tr>
+              <td>1</td>
+              <td>Pachuca</td>
+              <td>10</td><td>3</td><td>2</td><td>5</td>
+              <td>12</td><td>14</td><td>+4</td><td>15</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-principal">
+    <p>© 2025 Liga Universitaria. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

@@ -15,26 +15,60 @@ body {
 
 /* Encabezado principal */
 header {
-background: rgba(34, 41, 31, 0.8);
+  background: rgba(34, 41, 31, 0.8);
   color: white;
-  padding: 15px;
-  text-align: center;
+  padding: 20px 40px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;   /* coloca título y menú uno debajo del otro */
+  align-items: center;      /* centra contenido horizontalmente */
 }
 
-/* Menú de navegación */
-nav {
-  position: relative; /* permite posicionar el elemento a la derecha */
+/* === FILA SUPERIOR (logo + título) === */
+.header-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* centra el título */
+  position: relative;       /* permite posicionar el logo */
+  margin-top: 10px;
 }
 
+.logo-class {
+  position: absolute;
+  left: 20px; /* ubica logo al lado izquierdo */
+}
+
+.logo-class img {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* === TÍTULO === */
+header h1 {
+  margin: 0;
+  font-size: 1.6em;
+  text-align: center;
+}
+
+/* === FILA INFERIOR (menú + cerrar sesión) === */
+.header-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* separa menú y botón de cerrar sesión */
+  align-items: center;
+  margin-top: 40px;
+}
+
+/* === MENÚ DE NAVEGACIÓN === */
 nav ul {
   list-style: none;
-  padding: 0;
   display: flex;
-  justify-content: center; /* centra los demás elementos */
-  flex-wrap: wrap;
   gap: 10px;
-  margin: 10px 0 0;
+  margin: 5px;
+align-items: center;
 }
 
 nav ul li a {
@@ -52,16 +86,18 @@ nav ul li a:hover {
 }
 
 /* === CERRAR SESIÓN === */
-#sesion-item {
-  position: absolute; /* lo saca del flujo normal */
-  right: 20px;         /* lo coloca a la derecha */
-  top: 0;              /* alinea con la parte superior del nav */
-}
-
 #sesion-item a {
-  background-color: rgba(255, 0, 0, 0.2);
+  background-color: rgba(255, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  transition: background 0.3s;
 }
 
+#sesion-item a:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
 /* Contenedor principal */
 main {
   padding: 20px;
@@ -170,11 +206,239 @@ label{
 
 /* Pie de página */
 footer {
- background: rgba(128, 127, 127, 0.45); /* fondo blanco con transparencia */
+ background-color: rgba(185, 188, 185, 0.20);
   color: white;
   text-align: center;
   padding: 10px;
   margin-top: 30px;
   font-size: 0.9em;
 
+}
+/*segundo diseño
+
+/* ===== MODAL DE COMENTARIOS*/
+.modal-overlay {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* se muestra sobre todo */
+}
+
+/* Ventana modal blanca */
+.modal-window {
+   background-color: rgba(206, 212, 206, 0.70);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  padding: 60px;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Botón cerrar */
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 18px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* Títulos y texto */
+.modal-window h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.modal-window p {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 100px;
+}
+
+/* Select y textarea */
+.modal-window select{
+  width: 100%;
+  padding: 10px;
+  margin: 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  resize: none;
+}
+.modal-window textarea {
+  width: 95%;
+  padding: 10px;
+  margin: 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  resize: none;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 30px;
+  border: 1px solid #588157;
+  background-color: #588157;  
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 12px;
+    background-color: #588157;  
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal-cancel {
+  background: #f1f1f1;
+  color: #232323;
+}
+
+.modal-send {
+  background: #a8c9ff;
+  color: #fff;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/*tercera ventana*/
+.tabla-posiciones-contenedor {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  padding: 50px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color: #333;
+}
+.tabla-posiciones-contenedor {
+  max-width: 1200px;    
+  min-height: 60vh; 
+}
+
+.tabla-posiciones-contenedor h2 {
+  color: #3A5A40;
+  border-bottom: 3px solid #A3B18A;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tabla-posiciones-filtros {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tabla-posiciones-filtros label {
+  font-weight: bold;
+  color: #3A5A40;
+}
+
+.tabla-posiciones-filtros select {
+  padding: 6px 10px;
+  border: 1px solid #A3B18A;
+  border-radius: 6px;
+  background-color: rgba(255,255,255,0.9);
+  color: #333;
+  font-size: 0.9em;
+  transition: 0.3s;
+}
+
+.tabla-posiciones-filtros select:hover {
+  background-color: #DAD7CD;
+}
+
+/* Tabla interna */
+.tabla-posiciones-tabla table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabla-posiciones-tabla th,
+.tabla-posiciones-tabla td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #A3B18A;
+}
+
+.tabla-posiciones-tabla th {
+  background-color: #588157;
+  color: #F2F2F2;
+  font-weight: bold;
+}
+
+.tabla-posiciones-tabla tr:nth-child(even) {
+  background-color: rgba(218, 215, 205, 0.5);
+}
+
+.tabla-posiciones-tabla tr:hover {
+  background-color: rgba(163, 177, 138, 0.3);
+  transition: 0.3s;
+}
+.footer-principal{
+  text-align: center;
+  padding: 15px 0;
+  margin-top: auto; /* ayuda a empujarlo al fondo */
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tabla-posiciones-filtros {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tabla-posiciones-tabla table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;        /* deja crecer libremente */
+  display: flex;          /* usa flex para centrar el contenido si quieres */
+  justify-content: center;
+  align-items: flex-start; /* o center si quieres que quede al medio vertical */
+  padding: 40px 0;
 }
