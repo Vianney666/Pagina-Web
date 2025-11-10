@@ -109,12 +109,29 @@
         color: rgba(255, 255, 255, 0.692);
         background: rgba(0, 0, 0, 0.815);
     }
+    .menu-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+    .hamburguesa {
+        width: 35px;
+        height: auto;
+        filter: invert(100%);
+        transition: 0.3;
+    }
+    .hamburguesa:hover {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
 </style>
 </head>
 <body>
     <header>
         <div class="logo">Canchibol</div>
-        <button class="menu-btn" id="abrirMenu">MENU<span class="icono">&#89776;</span>
+        <button class="menu-btn" id="abrirMenu">
+            <img src="menu.png" alt="Menu" class="hamburguesa">
         </button>
         </header>
         <nav class="side-menu" id="sideMenu">
