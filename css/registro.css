@@ -1,0 +1,109 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    body {
+      background: url(../img/Balon.png) no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+    }
+
+    .register-container {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 350px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      color: #000;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+      position: relative;
+    }
+
+    label {
+      font-size: 0.9em;
+      color: #000;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #aaa;
+      border-radius: 25px;
+      font-size: 0.95em;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #3a5a40;
+      box-shadow: 0 0 5px rgba(88, 129, 87, 0.5);
+    }
+
+    .toggle-btn {
+      position: absolute;
+      right: 15px;
+      top: 32px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 0.8em;
+      margin-top: 3px;
+      display: none;
+    }
+
+    .btn-register {
+      background-color: #588157;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 30px;
+      font-size: 1em;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    .btn-register:hover {
+      background-color: #3a5a40;
+    }
+
+    .login-link {
+      margin-top: 15px;
+      font-size: 0.9em;
+    }
+
+    .login-link a {
+      color: #0077b6;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .register-container {
+        width: 90%;
+        padding: 30px;
+      }
+    }
