@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canchibol</title>
-
-<style>
-    * {
+ * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -109,6 +101,7 @@
         color: rgba(255, 255, 255, 0.692);
         background: rgba(0, 0, 0, 0.815);
     }
+<<<<<<< HEAD:CanchibolP.html
     
 </style>
 </head>
@@ -117,6 +110,9 @@
         <div class="logo">Canchibol</div>
        
         </header>
+       
+    
+
     <main>
         <div class="contenido">
             <h2>Bienvenido a</h2>
@@ -134,3 +130,21 @@
     
 </body>
 </html>
+=======
+    .menu-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+    .hamburguesa {
+        width: 35px;
+        height: auto;
+        filter: invert(100%);
+        transition: 0.3;
+    }
+    .hamburguesa:hover {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+>>>>>>> 3632f7e92f8ebf5509e4563a413fc55859aceca8:css/inicio.css

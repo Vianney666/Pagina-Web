@@ -1,58 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Credenciales de Árbitros</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Árbitros</title>
+  <link rel="stylesheet" href="css/credenciales_arbitros.css">
 </head>
+
 <body>
-  <main class="arbitro-seccion">
-    <h1 class="titulo">Credenciales de Árbitros</h1>
 
-    <div class="contenedor-arbitros">
-      <div class="arbitro">
-        <p><strong>Nombre:</strong> Juan Pérez</p>
-        <p><strong>Teléfono:</strong> 555-1234</p>
-        <p><strong>Correo:</strong> juan@mail.com</p>
-        <p><strong>Estado:</strong> <span class="estado disponible">Disponible</span></p>
-      </div>
+  <section id="arbitros" class="modulo">
+    <h2>Gestión de Árbitros</h2>
 
-      <div class="arbitro">
-        <p><strong>Nombre:</strong> Pedro Gómez</p>
-        <p><strong>Teléfono:</strong> 555-5678</p>
-        <p><strong>Correo:</strong> pedro@mail.com</p>
-        <p><strong>Estado:</strong> <span class="estado no-disponible">No disponible</span></p>
-      </div>
+    <form id="formArbitro" class="formulario">
+      <input type="text" id="nombreArbitro" placeholder="Nombre del árbitro" required>
+      <input type="tel" id="telefonoArbitro" placeholder="Teléfono" required>
+      <input type="email" id="correoArbitro" placeholder="Correo" required>
+      <select id="estadoArbitro" required>
+        <option value="true">Disponible</option>
+        <option value="false">No disponible</option>
+      </select>
+      <button type="submit" id="btnGuardar">Guardar</button>
+    </form>
 
-      <div class="arbitro">
-        <p><strong>Nombre:</strong> Luis Torres</p>
-        <p><strong>Teléfono:</strong> 555-7890</p>
-        <p><strong>Correo:</strong> luis@mail.com</p>
-        <p><strong>Estado:</strong> <span class="estado disponible">Disponible</span></p>
-      </div>
-
-      <div class="arbitro">
-        <p><strong>Nombre:</strong> Carlos Mendoza</p>
-        <p><strong>Teléfono:</strong> 555-3456</p>
-        <p><strong>Correo:</strong> carlos@mail.com</p>
-        <p><strong>Estado:</strong> <span class="estado no-disponible">No disponible</span></p>
-      </div>
-
-      <div class="arbitro">
-        <p><strong>Nombre:</strong> José Ramírez</p>
-        <p><strong>Teléfono:</strong> 555-6543</p>
-        <p><strong>Correo:</strong> jose@mail.com</p>
-        <p><strong>Estado:</strong> <span class="estado disponible">Disponible</span></p>
-      </div>
-
-      <div class="arbitro">
-        <p><strong>Nombre:</strong> Mario López</p>
-        <p><strong>Teléfono:</strong> 555-2468</p>
-        <p><strong>Correo:</strong> mario@mail.com</p>
-        <p><strong>Estado:</strong> <span class="estado disponible">Disponible</span></p>
-      </div>
+    <div class="tabla-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla">
+          <!-- los arbitros que se añaden en la web se guardan aqui en el arreglo js-->
+        </tbody>
+      </table>
     </div>
-  </main>
+  </section>
+
+  <script src="javascript/arbitros.js"></script>
+
 </body>
+
 </html>
