@@ -93,11 +93,3 @@
         background-color: white;
         color: black;
     }
-
-    footer {
-        text-align: center;
-        padding: 10px;
-        font-size: 0.9em;
-        color: rgba(255, 255, 255, 0.692);
-        background: rgba(0, 0, 0, 0.815);
-    }
