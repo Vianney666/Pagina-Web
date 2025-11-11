@@ -464,69 +464,7 @@ main {
 
 
 
-/*cuarta ventana*/
-/* === ESTILOS GENERALES === */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-}
 
-/* === SECCIÓN GENERAL === */
-.arbitro-seccion {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* === TÍTULO === */
-.arbitro-seccion .titulo {
-  color: #333;
-  margin-bottom: 30px;
-  font-size: 28px;
-  text-align: center;
-}
-
-/* === CONTENEDOR PRINCIPAL === */
-.arbitro-seccion .contenedor-arbitros {
-  display: flex;
-  flex-direction: column; /* Recuadros uno debajo de otro */
-  gap: 20px;
-  width: 100%;
-  max-width: 600px;
-}
-
-/* === CADA ARBITRO === */
-.arbitro-seccion .arbitro {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.arbitro-seccion .arbitro:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.15);
-}
-
-.arbitro-seccion .arbitro p {
-  margin: 6px 0;
-  font-size: 15px;
-}
-
-/* === ESTADOS === */
-.arbitro-seccion .estado {
-  font-weight: bold;
-}
-
-.arbitro-seccion .estado.disponible {
-  color: green;
-}
-
-.arbitro-seccion .estado.no-disponible {
-  color: red;
-}
 
 
 
