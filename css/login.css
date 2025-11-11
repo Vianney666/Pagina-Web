@@ -6,12 +6,12 @@
     }
 
     body {
-      background: url(../img/Balon.png) no-repeat center center/cover;
+      background: url(/img/Balon.png) no-repeat center center/cover;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #000;
+    
     }
 
     .login-container {

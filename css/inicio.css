@@ -6,7 +6,7 @@
 
     body {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        background: url(fondoP.jpg) no-repeat center/cover;
+        background: url(/img/fondoInicio.jpg) no-repeat center/cover;
         color: white;
         height: 100vh;
         display: flex;
@@ -101,50 +101,3 @@
         color: rgba(255, 255, 255, 0.692);
         background: rgba(0, 0, 0, 0.815);
     }
-<<<<<<< HEAD:CanchibolP.html
-    
-</style>
-</head>
-<body>
-    <header>
-        <div class="logo">Canchibol</div>
-       
-        </header>
-       
-    
-
-    <main>
-        <div class="contenido">
-            <h2>Bienvenido a</h2>
-            <h1>CANCHIBOL</h1>
-            <div class="botones">
-                <a href="canchibolI.html" class="btn">Iniciar sesion</a>
-                <a href="canchibolR.html" class="btn">Registrarse</a>
-            </div>
-        </div>
-    </main>
-    <footer>
-        © 2025 Canchibol - Todos los derechos reservados
-    </footer>
-
-    
-</body>
-</html>
-=======
-    .menu-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-    }
-    .hamburguesa {
-        width: 35px;
-        height: auto;
-        filter: invert(100%);
-        transition: 0.3;
-    }
-    .hamburguesa:hover {
-        opacity: 0.8;
-        transform: scale(1.05);
-    }
->>>>>>> 3632f7e92f8ebf5509e4563a413fc55859aceca8:css/inicio.css
