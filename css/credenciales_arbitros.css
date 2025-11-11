@@ -6,8 +6,9 @@ body {
   background-attachment: fixed;    
   color: #DAD7CD; 
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #fff;
   margin: 0;
+
 }
 
 /* cabecera*/
@@ -15,7 +16,8 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background: #fff;
+  background: rgba(247, 250, 246, 0.60);
+  border-radius: 15px;
 }
 
 #arbitros h2 {
