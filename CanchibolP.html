@@ -14,7 +14,7 @@
 
     body {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        background: url(https://static.vecteezy.com/system/resources/thumbnails/056/428/609/small/close-up-view-of-soccer-field-grass-in-sunlit-stadium-photo.jpg) no-repeat center/cover;
+        background: url(fondoP.jpg) no-repeat center/cover;
         color: white;
         height: 100vh;
         display: flex;
@@ -109,37 +109,15 @@
         color: rgba(255, 255, 255, 0.692);
         background: rgba(0, 0, 0, 0.815);
     }
-    .menu-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-    }
-    .hamburguesa {
-        width: 35px;
-        height: auto;
-        filter: invert(100%);
-        transition: 0.3;
-    }
-    .hamburguesa:hover {
-        opacity: 0.8;
-        transform: scale(1.05);
-    }
+    
 </style>
 </head>
 <body>
     <header>
         <div class="logo">Canchibol</div>
-        <button class="menu-btn" id="abrirMenu">
-            <img src="menu.png" alt="Menu" class="hamburguesa">
-        </button>
+       
         </header>
-        <nav class="side-menu" id="sideMenu">
-                <a href="#">Registro de jugadores</a>
-                <a href="#">Registro de partidos</a>
-                <a href="#">jhgfc</a>
-            </ul>
-        </nav>
+       
     
 
     <main>
@@ -156,12 +134,6 @@
         © 2025 Canchibol - Todos los derechos reservados
     </footer>
 
-    <script>
-        const abrirMenu = document.getElementById('abrirMenu');
-        const sideMenu = document.getElementById('sideMenu');
-        abrirMenu.addEventListener('click', () => {
-            sideMenu.classList.toggle('active');
-        });
-    </script>
+    
 </body>
 </html>
