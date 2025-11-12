@@ -18,7 +18,7 @@
          display: flex;
     justify-content: center; /* Centra horizontalmente el contenido */
     align-items: center;      /* Centra verticalmente dentro del header */
-    padding: 30px 0 0 0;
+    padding: 150px 0 0 0;
         background: rgba(0, 0, 0, 0.6);
     }
    
@@ -34,8 +34,8 @@
     background: rgba(0, 0, 0, 0.6);
     }
     div.contenido{
-        padding-bottom: 300px;
-        margin-top: 20px;
+        padding-bottom: 340px;
+        margin-top: 10px;
     }
     .contenido {
     display: flex;
@@ -111,8 +111,12 @@
 .tabla_decreto{
       background-color: rgba(255, 255, 255, 0.60);
         border-radius: 10px;
+         max-width: 900px;
+         width: 100%;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        padding: 25px;
+        padding: 25px;  
+          margin: 40px auto;  /* 🔹 Centra horizontalmente y da separación vertical */
+             
 }
     .tarjetas {
          display: flex;              /* activa flexbox */
@@ -141,9 +145,10 @@ background: url(img/Balon.png);
   background-attachment: fixed;
 }
 .tabla_de_juegos {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+       display: flex;
+    justify-content: center;   /* Centra horizontalmente */
+    align-items: center;       /* Centra verticalmente */
+    min-height: 100vh;         /* Ocupa toda la altura de la ventana */
     padding: 20px;
 }
 
