@@ -13,8 +13,7 @@
       justify-content: center;
     
     }
-
-    .login-container {
+        .login-container {
       background: rgba(255, 255, 255, 0.8);
       padding: 40px 50px;
       border-radius: 15px;
@@ -63,8 +62,9 @@
 
     .toggle-btn {
       position: absolute;
+      padding-top: 12px;
       right: 15px;
-      top: 10px;
+      top: 20px;
       background: none;
       border: none;
       cursor: pointer;
@@ -79,11 +79,18 @@
     }
 
     .checkbox-group {
-      text-align: left;
-      font-size: 0.9em;
-      margin-bottom: 15px;
+      display: flex;
+  align-items: center;   /* centra verticalmente */
+  gap: 8px;              /* espacio entre texto y checkbox */
+  justify-content: flex-start; /* los mantiene a la izquierda */
+  flex-direction: row-reverse; /* 🔹 invierte el orden de los elementos */
+  font-size: 0.95em;
+  margin-bottom: 15px;
     }
 
+    .checkbox-group label {
+      padding-left: 35px;
+}
     .btn-login {
       background-color: #588157;
       color: #fff;
