@@ -515,19 +515,58 @@ main {
   padding: 5px;
 }
 
+/* Contenedor horizontal */
+.pj_lista {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Mini-caja de cada día */
+.pj_lista li {
+  width: 55px;              /* Ajusta según tu diseño */
+  text-align: center;
+  padding: 5px 0;
+  position: relative;       /* Necesario para ::after */
+}
+
+/* --- LÍNEA VERTICAL ENTRE LAS MINI-CAJAS --- */
+.pj_lista li::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 10%;                 /* altura visual como tu imagen */
+  height: 80%;
+  width: 1px;
+  background: #d0d0d0;      /* gris suave */
+}
+
+/* El último no lleva línea */
+.pj_lista li:last-child::after {
+  display: none;
+}
+
+/* ***** TU ESTILO ORIGINAL ***** */
+
 .pj_dia_txt {
   font-weight: bold;
   display: block;
+  color: #0078d7;           /* igual a tu imagen */
+  font-size: 11px;
 }
 
 .pj_dia {
   font-size: 14px;
   display: block;
-  color: white;
+  color: white;             /* este valor lo mantengo tal cual */
+  font-weight: bold;
 }
 
 .pj_cant_partidos {
   color: #aaa;
+  display: block;
+  font-size: 11px;
 }
 
 /* Día actual */
