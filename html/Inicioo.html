@@ -13,17 +13,46 @@
       <img src="/img/logo_canchas.png" alt="Logo de pagina">
     </a>
         </header>
-   
-        <main>
+    <main>
         <div class="contenido">
             <h2>Bienvenido a</h2>
             <h1>CANCHIBOL</h1>
             <div class="botones">
                 <a href="/html/Loginn.html" class="btn">Iniciar sesión</a>
-                <a href="/html/Registro.html" class="btn">Registrarse</a>  
+                <a href="/html/Registro.html" class="btn">Registrarse</a>
             </div>
         </div>
-        
+         <div class="encabezado">
+      <h2>Próximos partidos</h2>
+
+      <div class="calendario">
+        <ul class="pj_lista">
+          <!-- Semana 1 -->
+          <li><span class="pj_dia_txt">Vie</span><span class="pj_dia">7</span><span class="pj_cant_partidos">74</span></li>
+          <li><span class="pj_dia_txt">Sáb</span><span class="pj_dia">8</span><span class="pj_cant_partidos">54</span></li>
+          <li><span class="pj_dia_txt">Dom</span><span class="pj_dia">9</span><span class="pj_cant_partidos">42</span></li>
+          <li><span class="pj_dia_txt">Lun</span><span class="pj_dia">10</span><span class="pj_cant_partidos">35</span></li>
+          <li><span class="pj_dia_txt">Mar</span><span class="pj_dia">11</span><span class="pj_cant_partidos">30</span></li>
+          <li><span class="pj_dia_txt">Mié</span><span class="pj_dia">12</span><span class="pj_cant_partidos">28</span></li>
+          <li><span class="pj_dia_txt">Jue</span><span class="pj_dia">13</span><span class="pj_cant_partidos">25</span></li>
+
+        </ul>
+      </div>
+
+      <!-- DÍA ACTUAL: movida debajo del calendario dentro del encabezado -->
+      <section class="dia_actual">
+        <div class="fecha_actual">
+          <div class="hoja_cal">
+            <span class="hc_top">NOV</span>
+            <span class="hc_day">7</span>
+          </div>
+          <div class="pj_info">
+            <div class="titulo_dia">hoy viernes</div>
+            <div class="partidos_programados">74 partidos programados</div>
+          </div>
+        </div>
+      </section>
+    </div>
          <section class="tabla_decreto" class="modulo">
              <h2>Panel Principal</h2>
          <div class="tarjetas">
@@ -32,7 +61,6 @@
              <div class="card">Canchas Libres: <strong>0</strong></div>
         </div>
     </section>
-    
         <section class="tabla_de_juegos">
         <div class="contenedor-tabla modulo">
             <h2>CALENDARIO DE PARTIDOS</h2>
