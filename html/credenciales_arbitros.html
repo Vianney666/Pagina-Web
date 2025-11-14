@@ -5,278 +5,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Árbitros</title>
-  <style>
-body {
-  background: url("../img/Balon.png"); 
-  background-size: cover;       
-  background-position: center;    
-  background-attachment: fixed;    
-  color: #DAD7CD; 
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: #fff;
-  margin: 0;
-
-}
-
-/* cabecera*/
-#arbitros.modulo {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  background: rgba(247, 250, 246, 0.60);
-  border-radius: 15px;
-}
-
-#arbitros h2 {
-    color: #2d5016;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2em;
-}
-
-
-.formulario {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.formulario input,
-.formulario select,
-.formulario button {
-    padding: 8px;
-    border: 1px solid #A3B18A;
-    border-radius: 6px;
-    flex: 1 1 180px;
-}
-
-.formulario input:focus,
-.formulario select:focus {
-    outline: 2px solid #588157;
-}
-
-.formulario button {
-    background-color: #3A5A40;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.formulario button:hover {
-    background-color: #588157;
-}
-
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    font-family: Arial, sans-serif;
-}
-
-table th, table td {
-    border: 1px solid #A3B18A;
-    padding: 12px;
-    text-align: center;
-}
-
-table th {
-    background-color: #588157;
-    color: rgb(53, 51, 51);
-    font-weight: bold;
-    font-size: 14px;
-}
-
-table tr:nth-child(even) {
-    background-color: rgba(218, 215, 205, 0.5);
-}
-
-tbody td {
-    color: #454444;
-    font-size: 14px;
-}
-
-.estado-disponible {
-    color: #2d5016;
-    font-weight: bold;
-    background: transparent;
-}
-
-.estado-no-disponible {
-    color: #8B4513;
-    font-weight: bold;
-    background: transparent;
-}
-
-.acciones-container {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-}
-
-.btn-accion {
-    padding: 6px 12px;
-    border: 1px solid #A3B18A;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    text-decoration: none;
-    transition: all 0.3s;
-    background: white;
-}
-
-.btn-editar {
-    color: #3A5A40;
-    border-color: #3A5A40;
-}
-
-.btn-editar:hover {
-    background-color: #3A5A40;
-    color: white;
-}
-
-.btn-eliminar {
-    color: #8B4513;
-    border-color: #8B4513;
-}
-
-.btn-eliminar:hover {
-    background-color: #8B4513;
-    color: white;
-}
-
-/* tabla adaptable y responsiva */
-@media (max-width: 1024px) {
-    .tabla-container {
-        overflow-x: auto;
-    }
-    
-    table {
-        min-width: 800px;
-    }
-}
-
-@media (max-width: 768px) {
-    #arbitros.modulo {
-        padding: 15px;
-    }
-    
-    .formulario {
-        flex-direction: column;
-    }
-    
-    .formulario input,
-    .formulario select,
-    .formulario button {
-        flex: 1 1 auto;
-        margin-bottom: 8px;
-    }
-    
-    table th, 
-    table td {
-        padding: 8px 6px;
-        font-size: 13px;
-    }
-    
-    .btn-accion {
-        padding: 4px 8px;
-        font-size: 11px;
-    }
-}
-
-@media (max-width: 480px) {
-    #arbitros.modulo {
-        padding: 10px;
-        margin: 5px;
-    }
-    
-    #arbitros h2 {
-        font-size: 1.5em;
-        margin-bottom: 20px;
-    }
-    
-    table {
-        min-width: 600px;
-    }
-    
-    table th, 
-    table td {
-        padding: 6px 4px;
-        font-size: 12px;
-    }
-    
-    .acciones-container {
-        flex-direction: column;
-        gap: 2px;
-    }
-    
-    .btn-accion {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* vista para celulares pequeños */
-@media (max-width: 360px) {
-    .tabla-container {
-        border: 1px solid #A3B18A;
-        border-radius: 6px;
-        padding: 10px;
-    }
-    
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-    
-    thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-    
-    tr {
-        border: 1px solid #A3B18A;
-        margin-bottom: 10px;
-        border-radius: 6px;
-        padding: 10px;
-    }
-    
-    td {
-        border: none;
-        position: relative;
-        padding-left: 50%;
-        text-align: left;
-    }
-    
-    td:before {
-        position: absolute;
-        left: 10px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        font-weight: bold;
-        color: #2d5016;
-    }
-    
-    td:nth-of-type(1):before { content: "Nombre:"; }
-    td:nth-of-type(2):before { content: "Teléfono:"; }
-    td:nth-of-type(3):before { content: "Correo:"; }
-    td:nth-of-type(4):before { content: "Estado:"; }
-    td:nth-of-type(5):before { content: "Acciones:"; }
-    
-    .acciones-container {
-        justify-content: flex-start;
-    }
-
-
-}
-</style>
+  <link rel="stylesheet" href="/css/credenciales_arbitros.css">
 </head>
 
 <body>
+      <header>
+    <div class="header-top">
+      <div class="logo-class">
+      </div>
+      <h1>Lista de Árbitros</h1>
+    </div>
+    
+    <div class="header-bottom">
+      <nav>
+        <ul>  
+          <li><a href="/html/Dashboard-admin.html">Partidos</a></li>
+           <!-- <li><a href="#">Jugadores</a></li>
+          <li><a href="#">Equipos</a></li> -->
+        </ul>
+      </nav>
 
-  <section id="arbitros" class="modulo">
+      <div id="sesion-item">
+     <a href="/html/Inicioo.html" class="logout-btn">Cerrar Sesión</a>
+    </div>
+    
+  </div>
+    </div>
+  </header>
+
+   <section id="arbitros" class="modulo">
     <h2>Gestión de Árbitros</h2>
 
     <form id="formArbitro" class="formulario">
@@ -302,132 +59,13 @@ tbody td {
           </tr>
         </thead>
         <tbody id="cuerpoTabla">
-          <!-- los arbitros que se añaden en la web se guardan aqui en el arreglo js-->
+           <!-- los arbitros que se añaden en la web se guardan aqui en el arreglo js -->
         </tbody>
       </table>
     </div>
-  </section>
+  </section> 
 
-  <script>
-    // arreglo estatico
-let arbitros = [
-    {
-        id: 1,
-        nombre: "Juan Pablo Velazquez",
-        telefono: "3332704683",
-        correo: "vela@gmail.com",
-        disponible: true
-    }
-];
-
-let editandoId = null;
-
-
-function mostrarArregloEnConsola() {
-    console.log('         Árbitros registrados \n');
-    console.log(`Árbitros en el sistema: ${arbitros.length}`);
-    console.log(`Disponibles: ${arbitros.filter(a => a.disponible).length}`);
-    console.log(`No disponibles: ${arbitros.filter(a => !a.disponible).length}`);
-    console.log('-----------------------------------------');
-
-    arbitros.forEach((arbitro, index) => {
-        console.log(`${index + 1}. ${arbitro.nombre} | ${arbitro.telefono} | ${arbitro.correo} | 
-        ${arbitro.disponible ? ' Disponible' : 'No disponible'}`);
-    });
-}
-
-//busqueda al html con su id
-const form = document.getElementById('formArbitro');
-const tabla = document.getElementById('cuerpoTabla');
-const btnGuardar = document.getElementById('btnGuardar');
-
-
-form.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const nuevoArbitro = {
-        id: editandoId || Date.now(),
-        nombre: document.getElementById('nombreArbitro').value,
-        telefono: document.getElementById('telefonoArbitro').value,
-        correo: document.getElementById('correoArbitro').value,
-        disponible: document.getElementById('estadoArbitro').value === 'true'
-    };
-
-    if (editandoId) {
-        const index = arbitros.findIndex(arbitro => arbitro.id === editandoId);  // busca la posicion del arbitro en el array
-        arbitros[index] = nuevoArbitro;
-        editandoId = null;
-        btnGuardar.textContent = 'Guardar';
-    } else {
-        arbitros.push(nuevoArbitro);
-    }
-
-    actualizarTabla();
-    mostrarArregloEnConsola();
-    form.reset();
-});
-
-
-function actualizarTabla() {
-    tabla.innerHTML = '';
-
-    arbitros.forEach(arbitro => {
-        const fila = document.createElement('tr');
-
-        fila.innerHTML = `
-            <td>${arbitro.nombre}</td>
-            <td>${arbitro.telefono}</td>
-            <td>${arbitro.correo}</td>
-            <td>
-                <span class="${arbitro.disponible ? 'estado-disponible' : 'estado-no-disponible'}">
-                    ${arbitro.disponible ? 'Disponible' : 'No disponible'}
-                </span>
-            </td>
-            <td>
-                <div class="acciones-container">
-                    <button class="btn-accion btn-editar" onclick="editarArbitro(${arbitro.id})">
-                        Editar
-                    </button>
-                    <button class="btn-accion btn-eliminar" onclick="eliminarArbitro(${arbitro.id})">
-                        Eliminar
-                    </button>
-                </div>
-            </td>
-        `;
-
-        tabla.appendChild(fila);
-    });
-}
-
-
-function editarArbitro(id) {
-    const arbitro = arbitros.find(a => a.id === id);
-
-    if (arbitro) {
-        document.getElementById('nombreArbitro').value = arbitro.nombre;
-        document.getElementById('telefonoArbitro').value = arbitro.telefono;
-        document.getElementById('correoArbitro').value = arbitro.correo;
-        document.getElementById('estadoArbitro').value = arbitro.disponible.toString();
-
-        editandoId = id;
-        btnGuardar.textContent = 'Actualizar';
-    }
-}
-
-
-function eliminarArbitro(id) {
-    if (confirm('¿Estás seguro de que quieres eliminar este árbitro?')) {
-        arbitros = arbitros.filter(arbitro => arbitro.id !== id);
-        actualizarTabla();
-        mostrarArregloEnConsola();
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    actualizarTabla();
-    mostrarArregloEnConsola();
-});
-  </script>
+  <script src="/javascript/arbitros.js"></script>
 
 </body>
 

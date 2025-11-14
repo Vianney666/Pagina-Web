@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="/css/interfaz-admin.css">
+  </head>
+
+  <body>
+    <header>
+  <div class="header-top">
+    <a class="logo-class" href="#">
+    </a>
+    <h1>Calendario de Partidos</h1>
+  </div>
+
+  <div class="header-bottom">
+    <nav>
+      <ul>
+       <li><a href="/html/credenciales_arbitros.html">Árbitros</a></li>
+        <!-- <li><a href="#equipos">Equipos</a></li>
+       <li><a href="#partidos">Partidos</a></li>
+       <li><a href="#reportes">Reportes</a></li>
+       <li><a href="#canchas">Canchas</a></li>
+       <li><a href="#partidos">Partidos</a></li>  -->   
+      </ul>
+    </nav>
+  
+    <div id="sesion-item">
+     <a href="/html/Inicioo.html" class="logout-btn">Cerrar Sesión</a>
+    </div>
+  </div>
+</header>
+
+<section id="partidos" class="modulo">
+      <h2>Gestión de Partidos</h2>
+      <form class="formulario">
+        <input type="date" />
+        <input type="time" />
+        <select><option>Cancha 1</option><option>Cancha 2</option></select>
+        <select><option>Árbitro 1</option><option>Árbitro 2</option></select>
+        <input type="text" placeholder="Equipo 1" />
+        <input type="text" placeholder="Equipo 2" />
+        <button>Guardar</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Hora</th><th>Cancha</th><th>Árbitro</th><th>Equipos</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2025-11-10</td><td>10:00</td><td>Cancha 1</td><td>Juan Pérez</td><td>Tigres vs Lobos</td><td>Editar / Eliminar</td></tr>
+        </tbody>
+      </table>
+    </section>
+   
+
+    
+    
+</body>
+</html>

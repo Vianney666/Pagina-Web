@@ -38,6 +38,17 @@
         <span class="error-msg" id="confirmar-error">Las contraseñas no coinciden</span>
       </div>
 
+      <!-- NUEVO CAMPO AGREGADO -->
+      <div class="input-group">
+        <label for="tipoUsuario">Tipo de Usuario</label>
+        <select id="tipoUsuario" name="tipoUsuario" required>
+          <option value="">Seleccione su tipo de usuario</option>
+          <option value="empleado">Empleado</option>
+          <option value="administrador">Administrador</option>
+        </select>
+        <span class="error-msg" id="tipoUsuario-error">Seleccione un tipo de usuario</span>
+      </div>
+
       <button type="submit" class="btn-register">Registrarse</button>
 
       <div class="login-link">
