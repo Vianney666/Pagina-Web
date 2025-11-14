@@ -18,7 +18,7 @@
          display: flex;
     justify-content: center; /* Centra horizontalmente el contenido */
     align-items: center;      /* Centra verticalmente dentro del header */
-    padding: 150px 0 0 0;
+    padding: 90px 0 0 0;
         background: rgba(0, 0, 0, 0.6);
     }
    
@@ -110,12 +110,12 @@
 
 .tabla_decreto{
       background-color: rgba(255, 255, 255, 0.60);
-        border-radius: 10px;
+        border-radius: 0;
          max-width: 900px;
          width: 100%;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        padding: 25px;  
-          margin: 40px auto;  /* 🔹 Centra horizontalmente y da separación vertical */
+        padding: 20px ;  
+          margin: 0 auto;  /* 🔹 Centra horizontalmente y da separación vertical */
              
 }
     .tarjetas {
@@ -149,14 +149,14 @@ background: url(img/Balon.png);
     justify-content: center;   /* Centra horizontalmente */
     align-items: center;       /* Centra verticalmente */
     min-height: 100vh;         /* Ocupa toda la altura de la ventana */
-    padding: 20px;
+    padding: 0;
 }
 
 .contenedor-tabla {
     width: 100%;
     max-width: 900px;
     background-color: rgba(255, 255, 255, 0.60);
-    border-radius: 10px;
+    border-radius:0 0 15px 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 25px;
     margin: 0 auto;
@@ -322,10 +322,11 @@ background: url(img/Balon.png);
 /* Encabezado */
 .encabezado {
   background-color: #2f3b52;
-  margin: 20px auto;
+  margin: auto;
   color: white;
   max-width: 900px;
   padding: 15px;
+  border-radius: 15px 15px 0 0;
   border-bottom: 3px solid #1c2331;
     display: flex;
   flex-direction: column;
