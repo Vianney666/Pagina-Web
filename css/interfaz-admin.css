@@ -41,7 +41,6 @@ header {
     display: block;
 }
 
-
 header h1 {
     margin: 0;
     font-size: 1.6em;
@@ -198,94 +197,4 @@ label {
 .card:hover {
     transform: scale(1.05);
     background-color: #3A5A40;
-}
-
-/* diseño responsivo */
-@media (max-width: 768px) {
-    #arbitros.modulo {
-        padding: 15px;
-        margin: 10px;
-    }
-
-    .formulario {
-        flex-direction: column;
-    }
-
-    .formulario input,
-    .formulario select,
-    .formulario button {
-        flex: 1 1 auto;
-    }
-
-    table th,
-    table td {
-        padding: 8px 6px;
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 480px) {
-    #arbitros h2 {
-        font-size: 1.5em;
-    }
-
-    .header-bottom {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-
-}
-
-/* Estados */
-.estado-disponible {
-    color: #2d5016;
-    font-weight: bold;
-}
-
-.estado-no-disponible {
-    color: #8B4513;
-    font-weight: bold;
-}
-
-/* Botones de acción */
-.acciones-container {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-}
-
-.btn-accion {
-    padding: 6px 12px;
-    border: 1px solid #A3B18A;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.3s;
-    background: white;
-}
-
-.btn-editar {
-    color: #3A5A40;
-    border-color: #3A5A40;
-}
-
-.btn-editar:hover {
-    background-color: #3A5A40;
-    color: white;
-}
-
-.btn-eliminar {
-    color: #8B4513;
-    border-color: #8B4513;
-}
-
-.btn-eliminar:hover {
-    background-color: #8B4513;
-    color: white;
 }

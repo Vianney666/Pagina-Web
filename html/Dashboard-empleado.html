@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleado</title>
+    <link rel="stylesheet" href="/css/interfaz-empleado.css">  
+</head>
+
+<body  class="body-partidos">
+    <header>
+  <div class="header-top">
+    <a class="logo-class" href="#">
+    </a>
+    <h1>Calendario de Partidos</h1>
+  </div>
+
+  <div class="header-bottom">
+   <!-- <nav>
+      <ul>
+       <li><a href="/html/credenciales_arbitros.html">Árbitros</a></li>
+       <li><a href="#equipos">Equipos</a></li>
+       <li><a href="#partidos">Partidos</a></li>
+       <li><a href="#reportes">Reportes</a></li>
+       <li><a href="#canchas">Canchas</a></li>
+       <li><a href="#partidos">Partidos</a></li>      
+      </ul>
+    </nav> -->
+  
+    <div id="sesion-item">
+     <a href="/html/Inicioo.html" class="logout-btn">Cerrar Sesión</a>
+    </div>
+  </div>
+</header>
+
+  <main class="partidos">
+    <div class="encabezado">
+      <h2>Próximos partidos</h2>
+
+      <!-- Calendario (3 semanas) -->
+      <div class="calendario">
+        <ul>
+          <!-- Semana 1 -->
+          <li><span class="pj_dia_txt">Vie</span><span class="pj_dia">7</span><span class="pj_cant_partidos">74</span></li>
+          <li><span class="pj_dia_txt">Sáb</span><span class="pj_dia">8</span><span class="pj_cant_partidos">54</span></li>
+          <li><span class="pj_dia_txt">Dom</span><span class="pj_dia">9</span><span class="pj_cant_partidos">42</span></li>
+          <li><span class="pj_dia_txt">Lun</span><span class="pj_dia">10</span><span class="pj_cant_partidos">35</span></li>
+          <li><span class="pj_dia_txt">Mar</span><span class="pj_dia">11</span><span class="pj_cant_partidos">30</span></li>
+          <li><span class="pj_dia_txt">Mié</span><span class="pj_dia">12</span><span class="pj_cant_partidos">28</span></li>
+          <li><span class="pj_dia_txt">Jue</span><span class="pj_dia">13</span><span class="pj_cant_partidos">25</span></li>    
+        </ul>
+      </div>
+
+      <!-- DÍA ACTUAL: movida debajo del calendario dentro del encabezado -->
+      <section class="dia_actual">
+        <div class="fecha_actual">
+          <div class="hoja_cal">
+            <span class="hc_top">NOV</span>
+            <span class="hc_day">7</span>
+          </div>
+          <div class="pj_info">
+            <div class="titulo_dia">hoy viernes</div>
+            <div class="partidos_programados">74 partidos programados</div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- FIN ENCABEZADO -->
+
+    <!-- LISTA DE PARTIDOS -->
+    <section class="lista_partidos">
+      <div class="juegos_dia">
+
+        <div class="info_torneo">
+          <span>OTOÑO 2025</span>
+          <span>Jornada 4</span>
+          <b>Unidad Dep. 15 Ignacio Calderón</b>
+        </div>
+
+        <!-- Tabla con todos los partidos (cada partido en una fila) -->
+        <table class="tabla_partidos" aria-label="Tabla de partidos">
+          <thead>
+            <tr>
+              <th>Equipo Local</th>
+              <th>Hora / Estado</th>
+              <th>Equipo Visitante</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="equipo">
+                
+                <div class="nombre">
+                  <span class="equipo_nombre">Academicos</span>
+                  <span class="grupo">Grupo C7</span>
+                </div>
+              </td>
+              <td class="hora">
+                <span>15:15hs</span><br>
+                <small>Normal</small>
+              </td>
+              <td class="equipo">
+                <div class="nombre">
+                  <span class="equipo_nombre">Newland School</span>
+                  <span class="grupo">Grupo C7</span>
+                </div>
+                
+              </td>
+            </tr>
+
+            <tr>
+              <td class="equipo">
+                
+                <div class="nombre">
+                  <span class="equipo_nombre">Leones Negros Tecnológico</span>
+                  <span class="grupo">Super Grupo</span>
+                </div>
+              </td>
+              <td class="hora">
+                <span>15:50hs</span><br>
+                <small>Normal</small>
+              </td>
+              <td class="equipo">
+                <div class="nombre">
+                  <span class="equipo_nombre">PSA</span>
+                  <span class="grupo">Super Grupo</span>
+                </div>
+                
+              </td>
+            </tr>
+
+            <!-- Agrega más <tr> aquí para más partidos -->
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+  </main>
+    
+  
+</body>
+</html>
