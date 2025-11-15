@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin.css">
+    <title>Equipos</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-top">
+            <a class="logo-class" href="#">
+                <img src="/img/logo_canchas.png" alt="Logo de pagina">
+            </a>
+            <h1>Administración de Canchas de Fútbol</h1>
+        </div>
+        <div class="header-bottom">
+
+            <nav>
+                <ul>
+                    <li><a href="/html/admin.html">Partidos</a></li>
+                    <li><a href="/html/arbitros.html">Árbitros</a></li>
+                    <li><a href="#">Equipos</a></li>
+                </ul>
+            </nav>
+
+            <div id="sesion-item">
+                <a href="/html/Inicioo.html">Cerrar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="equipos" class="modulo">
+        <h2>Gestión de Equipos</h2>
+        <form class="formulario">
+            <input type="text" placeholder="Nombre del equipo" />
+            <input type="text" placeholder="Representante" />
+            <input type="text" placeholder="Teléfono de contacto" />
+            <button>Guardar</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipo</th>
+                    <th>Representante</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tigres FC</td>
+                    <td>Pedro López</td>
+                    <td>555-4321</td>
+                    <td class="celda-acciones">
+                        <button class="btn-accion btn-editar">Editar</button>
+                        <button class="btn-accion btn-eliminar">Eliminar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Atlas FC</td>
+                    <td>Juan Perez</td>
+                    <td>555-1234</td>
+                    <td class="celda-acciones">
+                        <button class="btn-accion btn-editar">Editar</button>
+                        <button class="btn-accion btn-eliminar">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+
+</html>

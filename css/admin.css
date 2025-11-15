@@ -198,3 +198,115 @@ label {
     transform: scale(1.05);
     background-color: #3A5A40;
 }
+
+/* diseño responsivo */
+@media (max-width: 768px) {
+    #arbitros.modulo {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .formulario {
+        flex-direction: column;
+    }
+
+    .formulario input,
+    .formulario select,
+    .formulario button {
+        flex: 1 1 auto;
+    }
+
+    table th,
+    table td {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    #arbitros h2 {
+        font-size: 1.5em;
+    }
+
+    .header-bottom {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+.celda-acciones {
+    text-align: center;
+    vertical-align: middle;
+    min-width: 130px;
+}
+
+.celda-acciones .btn-accion {
+    padding: 4px 8px;
+    border: 1px solid;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.3s ease;
+    background: white;
+    font-weight: bold;
+    margin: 2px;
+    display: inline-block;
+    min-width: 50px;
+}
+
+/* Boton verde editar*/
+.celda-acciones .btn-editar {
+    color: #3A5A40;
+    border-color: #3A5A40;
+    background: rgba(58, 90, 64, 0.1);
+}
+
+.celda-acciones .btn-editar:hover {
+    background-color: #3A5A40;
+    color: white;
+}
+
+/* Boton rojo eliminar*/
+.celda-acciones .btn-eliminar {
+    color: #8B4513;
+    border-color: #8B4513;
+    background: rgba(139, 69, 19, 0.1);
+}
+
+.celda-acciones .btn-eliminar:hover {
+    background-color: #8B4513;
+    color: white;
+}
+
+/* Mejora responsive para celda de acciones */
+@media (max-width: 768px) {
+    .celda-acciones {
+        min-width: 110px;
+    }
+    
+    .celda-acciones .btn-accion {
+        padding: 3px 6px;
+        font-size: 10px;
+        min-width: 45px;
+        margin: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .celda-acciones {
+        min-width: 100px;
+    }
+    
+    .celda-acciones .btn-accion {
+        padding: 2px 4px;
+        font-size: 9px;
+        min-width: 40px;
+        display: block;
+        margin: 1px auto;
+    }
+}

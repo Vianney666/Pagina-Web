@@ -5,36 +5,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Árbitros</title>
-  <link rel="stylesheet" href="/css/credenciales_arbitros.css">
+  <link rel="stylesheet" href="/css/arbitros.css">
 </head>
 
 <body>
-      <header>
+  <header>
     <div class="header-top">
-      <div class="logo-class">
-      </div>
-      <h1>Lista de Árbitros</h1>
+      <a class="logo-class" href="#">
+        <img src="/img/logo_canchas.png" alt="Logo de pagina">
+      </a>
+      <h1>Administración de Canchas de Fútbol</h1>
     </div>
-    
+
     <div class="header-bottom">
       <nav>
-        <ul>  
-          <li><a href="/html/Dashboard-admin.html">Partidos</a></li>
-           <!-- <li><a href="#">Jugadores</a></li>
-          <li><a href="#">Equipos</a></li> -->
+        <ul>
+          <li><a href="/html/admin.html">Partidos</a></li>
+          <li><a href="#">Árbitros</a></li>
+          <li><a href="/html/equipos.html">Equipos</a></li>
         </ul>
       </nav>
 
       <div id="sesion-item">
-     <a href="/html/Inicioo.html" class="logout-btn">Cerrar Sesión</a>
+        <a href="/html/Inicioo.html" class="logout-btn">Cerrar Sesión</a>
+      </div>
     </div>
-    
-  </div>
-    </div>
+
   </header>
 
-   <section id="arbitros" class="modulo">
-    <h2>Gestión de Árbitros</h2>
+  <section id="arbitros" class="modulo">
+    <h2>Lista de Árbitros</h2>
 
     <form id="formArbitro" class="formulario">
       <input type="text" id="nombreArbitro" placeholder="Nombre del árbitro" required>
@@ -59,11 +59,11 @@
           </tr>
         </thead>
         <tbody id="cuerpoTabla">
-           <!-- los arbitros que se añaden en la web se guardan aqui en el arreglo js -->
+          <!-- los arbitros que se añaden en la web se guardan aqui en el arreglo js -->
         </tbody>
       </table>
     </div>
-  </section> 
+  </section>
 
   <script src="/javascript/arbitros.js"></script>
 

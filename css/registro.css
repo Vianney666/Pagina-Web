@@ -108,28 +108,4 @@
       }
     }
 
-    /* === AÑADE ESTAS LÍNEAS AL FINAL === */
-/* Estilos para el campo select - Tipo de Usuario */
-.input-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #aaa;
-    border-radius: 25px;
-    font-size: 14px;
-    outline: none;
-    transition: 0.3s;
-    background: white;
-    cursor: pointer;
-}
-
-.input-group select:focus {
-    border-color: #3a5a40;
-    box-shadow: 0 0 5px rgba(88, 129, 87, 0.5);
-}
-
-.input-group select option {
-    padding: 10px;
-    background: white;
-    color: #000;
-    border-radius: 0;
-}
+  

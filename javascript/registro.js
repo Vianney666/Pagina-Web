@@ -38,16 +38,6 @@ const togglePass1 = document.getElementById('togglePass1');
       confirmarError.style.display = (confirmar.value === password.value) ? 'none' : 'block';
     });
 
-    
-    // NUEVA VALIDACIÓN para tipo de usuario
-tipoUsuario.addEventListener('change', () => {
-    tipoUsuarioError.style.display = tipoUsuario.value ? 'none' : 'block';
-});
-
-
-
-
-
     const form = document.getElementById('registroForm');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
