@@ -13,6 +13,7 @@ class ConexionBD {
             die("Error de conexion: " . $this->conexion->connect_error);
         }
     }
+    
 
     public function registrarUsuario($nombre, $correo, $contrasenia) {
         $sql="INSERT INTO users (nombre, correo, contrasenia) VALUES (?,?,?)";
