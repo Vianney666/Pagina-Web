@@ -1,14 +1,16 @@
+
 <?php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
 
 include_once 'conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(["error" => "Método no permitido"]);
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
+
+if (!$data || !isset($data['id'])) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "error" => "ID inválido"]);
     exit;
 }
 
@@ -17,36 +19,28 @@ $conexion = $database->getConexion();
 
 if (!$conexion) {
     http_response_code(500);
-    echo json_encode(["error" => "Error de conexión a la base de datos"]);
-    exit;
-}
-
-$id = $_POST['id'] ?? 0;
-
-if (empty($id)) {
-    http_response_code(400);
-    echo json_encode(["error" => "ID requerido"]);
+    echo json_encode(["success" => false, "error" => "Error de conexión a la base de datos"]);
     exit;
 }
 
 $sql = "DELETE FROM arbitro WHERE id = ?";
 $stmt = $conexion->prepare($sql);
 
-if ($stmt) {
-    $stmt->bind_param("i", $id);
-    
-    if ($stmt->execute()) {
-        echo json_encode([
-            "success" => true,
-            "message" => "Árbitro eliminado exitosamente"
-        ]);
-    } else {
-        http_response_code(500);
-        echo json_encode(["error" => "Error al eliminar árbitro: " . $stmt->error]);
-    }
-    $stmt->close();
+if (!$stmt) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Error en la consulta: " . $conexion->error]);
+    exit;
+}
+
+$stmt->bind_param("i", $data['id']);
+
+if ($stmt->execute()) {
+    echo json_encode(["success" => true, "message" => "Árbitro eliminado"]);
 } else {
     http_response_code(500);
-    echo json_encode(["error" => "Error en la consulta: " . $conexion->error]);
+    echo json_encode(["success" => false, "error" => "Error al eliminar: " . $stmt->error]);
 }
+
+$stmt->close();
+$conexion->close();
 ?>

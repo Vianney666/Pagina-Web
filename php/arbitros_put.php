@@ -1,14 +1,29 @@
+
 <?php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Methods: PUT');
 header('Access-Control-Allow-Headers: Content-Type');
 
 include_once 'conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(["error" => "Método no permitido"]);
+// Obtener los datos JSON
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
+
+if (json_last_error() !== JSON_ERROR_NONE) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "error" => "JSON inválido"]);
+    exit;
+}
+
+// Validar campos 
+if (!isset($data['id']) || empty($data['nombre']) || empty($data['email']) || empty($data['telefono']) || !isset($data['disponible'])) {
+    http_response_code(400);
+    echo json_encode([
+        "success" => false, 
+        "error" => "Faltan campos requeridos"
+    ]);
     exit;
 }
 
@@ -17,40 +32,47 @@ $conexion = $database->getConexion();
 
 if (!$conexion) {
     http_response_code(500);
-    echo json_encode(["error" => "Error de conexión a la base de datos"]);
+    echo json_encode(["success" => false, "error" => "Error de conexión a la base de datos"]);
     exit;
 }
 
-$id = $_POST['id'] ?? 0;
-$nombre = $_POST['nombre'] ?? '';
-$telefono = $_POST['telefono'] ?? '';
-$correo = $_POST['correo'] ?? '';
-$disponible = isset($_POST['disponible']) ? (int)$_POST['disponible'] : 1;
-
-if (empty($id) || empty($nombre) || empty($telefono) || empty($correo)) {
-    http_response_code(400);
-    echo json_encode(["error" => "Datos incompletos"]);
-    exit;
-}
-
-$sql = "UPDATE arbitro SET nombre = ?, telefono = ?, correo = ?, disponible = ? WHERE id = ?";
+// preparar y ejecutar la consulta
+$sql = "UPDATE arbitro SET nombre = ?, email = ?, telefono = ?, disponible = ? WHERE id = ?";
 $stmt = $conexion->prepare($sql);
 
-if ($stmt) {
-    $stmt->bind_param("sssii", $nombre, $telefono, $correo, $disponible, $id);
+if (!$stmt) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Error en preparación: " . $conexion->error]);
+    exit;
+}
+
+// boleano para bd (true=1, false=0)
+$disponible = $data['disponible'] ? 1 : 0;
+$id = $data['id'];
+$nombre = $data['nombre'];
+$email = $data['email'];
+$telefono = $data['telefono'];
+
+$stmt->bind_param("sssii", $nombre, $email, $telefono, $disponible, $id);
+
+if ($stmt->execute()) {
     
-    if ($stmt->execute()) {
+    if ($stmt->affected_rows > 0) {
         echo json_encode([
-            "success" => true,
-            "message" => "Árbitro actualizado exitosamente"
+            "success" => true, 
+            "message" => "Árbitro actualizado"
         ]);
     } else {
-        http_response_code(500);
-        echo json_encode(["error" => "Error al actualizar árbitro: " . $stmt->error]);
+        echo json_encode([
+            "success" => false, 
+            "error" => "No se encontró el árbitro o los datos son iguales"
+        ]);
     }
-    $stmt->close();
 } else {
     http_response_code(500);
-    echo json_encode(["error" => "Error en la consulta: " . $conexion->error]);
+    echo json_encode(["success" => false, "error" => "Error al ejecutar: " . $stmt->error]);
 }
+
+$stmt->close();
+$conexion->close();
 ?>
