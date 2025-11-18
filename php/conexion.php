@@ -4,6 +4,86 @@ class ConexionBD {
     private $usuario = "root";
     private $password = "";
     private $bd = "canchibol";
+    public $conexion;
+
+    public function __construct() {
+        $this->conexion = new mysqli($this->host, $this->usuario, $this->password, $this->bd);
+        
+        // manejo silencioso 
+        if($this->conexion->connect_error) {
+            $this->conexion = null;
+        }
+    }
+
+    public function getConexion() {
+        return $this->conexion;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*class ConexionBD {
+    private $host = "localhost";
+    private $usuario = "root";
+    private $password = "";
+    private $bd = "canchibol";
     private $conexion;
 
     public function __construc() {
@@ -74,6 +154,8 @@ class ConexionBD {
         return $stmt->execute();
     }
 
+
+
     public function obtenerPartidos() {
         $sql = "SELECT * FROM partido ORDER BY fecha, hora";
         $resultado = $this->conexion->query($sql);
@@ -138,5 +220,5 @@ if ($_POST['action']){
     }
 
     echo json_encode($response);
-}
+} */
 ?>

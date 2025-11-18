@@ -2,14 +2,15 @@ CREATE DATABASE canchibol;
 
 USE canchibol;
 
-
-CREATE TABLE `arbitro` (
-  `nombre` varchar(200) NOT NULL,
-  `apellidoPaterno` varchar(200) NOT NULL,
-  `apellidoMaterno` varchar(200) NOT NULL,
-  `correo` varchar(50) NOT NULL,
-  `telefono` varchar(10) NOT NULL
-)
+CREATE TABLE arbitro (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(200) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    disponible TINYINT(1) DEFAULT 1,
+    fechaRegistro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    PRIMARY KEY (id)
+);
 
 CREATE TABLE `cancha` (
   `IdCancha` int(20) NOT NULL,

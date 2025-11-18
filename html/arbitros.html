@@ -36,6 +36,10 @@
   <section id="arbitros" class="modulo">
     <h2>Lista de Árbitros</h2>
 
+    <!-- ✅ Añadí un mensaje de estado para feedback al usuario -->
+    <div id="mensajeEstado" class="mensaje-estado" style="display: none;"></div>
+
+
     <form id="formArbitro" class="formulario">
       <input type="text" id="nombreArbitro" placeholder="Nombre del árbitro" required>
       <input type="tel" id="telefonoArbitro" placeholder="Teléfono" required>
@@ -45,6 +49,7 @@
         <option value="false">No disponible</option>
       </select>
       <button type="submit" id="btnGuardar">Guardar</button>
+      <button type="button" id="btnCancelar">Cancelar</button> <!-- ✅ Nuevo -->
     </form>
 
     <div class="tabla-container">
