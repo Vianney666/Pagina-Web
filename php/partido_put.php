@@ -1,3 +1,4 @@
+
 <?php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -25,11 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $equipo1 = $data['equipo1'] ?? '';
     $equipo2 = $data['equipo2'] ?? '';
     
-    if (empty($id) || empty($fecha) || empty($hora) || empty($cancha) || empty($arbitro_id) || empty($equipo1) || empty($equipo2)) {
-        echo json_encode(['success' => false, 'message' => 'Todos los campos son requeridos']);
-        exit;
-    }
-    
+    if (empty($id) || empty($fecha) || empty($hora) || empty($cancha) ||
+        empty($arbitro_id) || empty($equipo1) || empty($equipo2)) {
+        
+            echo json_encode(['success' => false, 'message' => 'Todos los campos son requeridos']);
+            exit;
+    }    
     
     //validar lo de cancha excluyendo el partido que se va editando
     $sql_conflicto_cancha = "SELECT id FROM partido WHERE fecha = ? AND hora = ? AND cancha = ? AND id != ?";
