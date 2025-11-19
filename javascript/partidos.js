@@ -1,100 +1,675 @@
-let partidos = [
-    {
-        id: 1,
-        equipo1: "RHINOS",
-        equipo2: "DEPORTIVO DINA",
-        fecha: "05-11-2025",
-        hora: "08:50",
-        cancha: "1",
-        titular: "Arbitro Principal"
-    },
-    {
-        id: 2,
-        equipo1: "FRANCO CANADIENSE",
-        equipo2: "RVA INSTALACIONES",
-        fecha: "05-11-2025",
-        hora: "08:50",
-        cancha: "2",
-        titular: "Arbitro Secundario"
-    }
-];
 
-let editandoPartido = null;
-function mostrarPartidos() {
-    const tbody = document.querySelector('.tabla-partifod tbody');
+// ===============================
+// FUNCIONES DE API
+// ===============================
+
+async function cargarArbitros() {
+    try {
+        const respuesta = await fetch('../php/arbitros_get.php');
+        if (!respuesta.ok) throw new Error('Error en el servidor');
+        const arbitros = await respuesta.json();
+        return arbitros.filter(arbitro => arbitro.disponible === 1 || arbitro.disponible === true);
+    } catch (error) {
+        return [];
+    }
+}
+
+function llenarDropdownArbitros(arbitros) {
+    const selectArbitro = document.querySelector('select[name="arbitro"]');
+    selectArbitro.innerHTML = '<option value="">Seleccione árbitro</option>';
+    arbitros.forEach(arbitro => {
+        const option = document.createElement('option');
+        option.value = arbitro.id;
+        option.textContent = arbitro.nombre;
+        selectArbitro.appendChild(option);
+    });
+}
+
+async function obtenerTodosPartidos() {
+    try {
+        const respuesta = await fetch('../php/partido_get.php');
+        if (!respuesta.ok) throw new Error('Error en el servidor');
+        const partidos = await respuesta.json();
+        return partidos.map(partido => ({
+            ...partido,
+            id: Number(partido.id),
+            arbitro_id: Number(partido.arbitro_id)
+        }));
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function crearPartido(partido) {
+    try {
+        const respuesta = await fetch('../php/partido_post.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(partido)
+        });
+        const resultado = await respuesta.json();
+        return resultado;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function actualizarPartido(id, partido) {
+    try {
+        const respuesta = await fetch('../php/partido_put.php', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, ...partido })
+        });
+        const resultado = await respuesta.json();
+        return resultado;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function eliminarPartido(id) {
+    try {
+        const respuesta = await fetch('../php/partido_delete.php', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id })
+        });
+        const resultado = await respuesta.json();
+        return resultado;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function cargarPartidosDesdeAPI() {
+    try {
+        const partidos = await obtenerTodosPartidos();
+        return partidos;
+    } catch (error) {
+        return [];
+    }
+}
+
+// ===============================
+// VARIABLES GLOBALES
+// ===============================
+let partidos = [];
+let arbitrosDisponibles = [];
+let editandoId = null;
+
+// ===============================
+// FUNCIONES DE INTERFAZ
+// ===============================
+
+function mostrarPartidos(partidos) {
+    const tbody = document.querySelector('table tbody');
     tbody.innerHTML = '';
+
+    if (partidos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay partidos programados</td></tr>';
+        return;
+    }
 
     partidos.forEach(partido => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-        <td class="hora-partido">${partido.hora}</td>
-        <td class="equipo-local">${partido.equipo1}</td>
-        <td class="vs">VS<td/>
-        <td class="equipo-visitante">${partido.equipo2}</td>
-        <td class="campo">${partido.cancha}</td>
-        <td>
-        <button onclick="editarPartido(${partido.id})">Editar<button>
-        <button onclick="eliminarPartido(${partido.id})">Eliminar<button>
-        </td>
+            <td>${partido.fecha}</td>
+            <td>${partido.hora}</td>
+            <td>${partido.cancha}</td>
+            <td>${partido.arbitro_nombre}</td>
+            <td>${partido.equipo1} vs ${partido.equipo2}</td>
+            <td class="celda-acciones">
+                <button class="btn-accion btn-editar" onclick="editarPartido(${partido.id})">Editar</button>
+                <button class="btn-accion btn-eliminar" onclick="eliminarPartidoConfirm(${partido.id})">Eliminar</button>
+            </td>
         `;
         tbody.appendChild(tr);
     });
 }
 
-function agregarPartido(event) {
-    event.preventDefault();
+function mostrarArregloEnConsola() {
+    console.log('Registro de Partidos');
+    console.log('Total de partidos:', partidos.length);
+    partidos.forEach((partido, index) => {
+        console.log(`${index + 1}. ID: ${partido.id} | ${partido.fecha} ${partido.hora}`);
+        console.log(`   Cancha: ${partido.cancha} | Árbitro: ${partido.arbitro_nombre}`);
+        console.log(`   Partido: ${partido.equipo1} vs ${partido.equipo2}`);
+    });
 
-    const nuevoPartido = {
-        id: editandoPartido || Date.now(),
-        equipo1: document.getElementById('equipo1').value,
-        equipo2: document.getElementById('equipo2').value,
-        fecha: document.getElementById('fecha').value,
-        hora: document.getElementById('hora').value,
-        cancha: document.getElementById('cancha').value,
-        titular: document.getElementById('arbitro').value,
-    };
+    console.log('Arbitros disponibles');
+    arbitrosDisponibles.forEach((arbitro, index) => {
+        console.log(`${index + 1}. ID: ${arbitro.id} | ${arbitro.nombre} | Tel: ${arbitro.telefono}`);
+    });
+}
 
-    if (editandoPartido) {
-        const index = partidos.findIndex(p => p.id === editandoPartido);
-        partidos[index] = nuevoPartido;
-        editandoPartido = null;
-        document.getElementById('btnGuardarPartido').textContent='GuardarPartido';
-    } else {
-        partidos.push(nuevoPartido);
-    }
+function limpiarFormulario() {
+    document.querySelector('.formulario').reset();
+    editandoId = null;
+    document.querySelector('.formulario button').textContent = 'Guardar';
+}
 
-    mostrarPartidos();
-    document.getElementById('fromPartido').resest();
-    console.log('Partidos actualizados:', partidos);
+function mostrarMensaje(mensaje) {
+    alert(mensaje);
 }
 
 function editarPartido(id) {
-    const partido = partidos.find(p=>p.id === id);
-
-    if (partido) {
-        document.getElementById('equipo1').value=partido.equipo1;
-        document.getElementById('equipo2').value=partido.equipo2;
-        document.getElementById('fecha').value=partido.fecha;
-        document.getElementById('hora').value=partido.hora;
-        document.getElementById('cancha').value=partido.cancha;
-        document.getElementById('arbitro').value=partido.titular;
-
-        editandoPartido = id;
-        document.getElementById('btnGuardarArbitro').textContent='ActualizarPartido';
+    try {
+        const idNumero = Number(id);
+        const partido = partidos.find(p => p.id === idNumero);
+        if (partido) {
+            const form = document.querySelector('.formulario');
+            form.querySelector('input[type="date"]').value = partido.fecha;
+            form.querySelector('input[type="time"]').value = partido.hora;
+            form.querySelector('select[name="cancha"]').value = partido.cancha;
+            form.querySelector('select[name="arbitro"]').value = partido.arbitro_id;
+            form.querySelector('input[name="equipo1"]').value = partido.equipo1;
+            form.querySelector('input[name="equipo2"]').value = partido.equipo2;
+            editandoId = idNumero;
+            form.querySelector('button').textContent = 'Actualizar';
+        }
+    } catch (error) {
+        mostrarMensaje('Error al cargar datos del partido');
     }
 }
 
-function eliminarPartido(id) {
-    if (confirm('¿Estas seguro de eliminar este partido?')) {
-        partidos = partidos.filter(p=>p.id !== id);
-        mostrarPartidos();
+function eliminarPartidoConfirm(id) {
+    const idNumero = Number(id);
+    const partido = partidos.find(p => p.id === idNumero);
+    if (partido && confirm('¿Estás seguro de eliminar ' + partido.equipo1 + ' vs ' + partido.equipo2 + '?')) {
+        eliminarPartidoAsync(idNumero);
     }
 }
 
-function filtrarPartidosPorFecha(fecha) {
-    return partidos.filter(partido=>partido.fecha === fecha);
+async function eliminarPartidoAsync(id) {
+    try {
+        await eliminarPartido(id);
+        partidos = await cargarPartidosDesdeAPI();
+        mostrarPartidos(partidos);
+        mostrarArregloEnConsola();
+        mostrarMensaje('Partido eliminado correctamente');
+    } catch (error) {
+        mostrarMensaje('Error al eliminar partido');
+    }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    mostrarPartidos();
+// ===============================
+// VALIDACIÓN DE ESPACIOS ENTRE PARTIDOS (40 minutos)
+// ===============================
+
+function validarEspacioPartidos(fecha, hora, cancha, arbitro_id, partidoId = null) {
+    const horaInicio = new Date(`${fecha}T${hora}`);
+    const horaFin = new Date(horaInicio.getTime() + 40 * 60000);
+
+    // Verificar conflicto de cancha
+    const conflictoCancha = partidos.some(partido => {
+        if (partidoId && partido.id === partidoId) return false;
+
+        const partidoHoraInicio = new Date(`${partido.fecha}T${partido.hora}`);
+        const partidoHoraFin = new Date(partidoHoraInicio.getTime() + 40 * 60000);
+
+        return partido.fecha === fecha &&
+               partido.cancha === cancha &&
+               ((horaInicio >= partidoHoraInicio && horaInicio < partidoHoraFin) ||
+                (horaFin > partidoHoraInicio && horaFin <= partidoHoraFin) ||
+                (horaInicio <= partidoHoraInicio && horaFin >= partidoHoraFin));
+    });
+
+    if (conflictoCancha) {
+        return 'La cancha está ocupada en ese horario. Los partidos duran 40 minutos.';
+    }
+
+    // Verificar conflicto de árbitro
+    const conflictoArbitro = partidos.some(partido => {
+        if (partidoId && partido.id === partidoId) return false;
+
+        const partidoHoraInicio = new Date(`${partido.fecha}T${partido.hora}`);
+        const partidoHoraFin = new Date(partidoHoraInicio.getTime() + 40 * 60000);
+
+        return partido.fecha === fecha &&
+               partido.arbitro_id === arbitro_id &&
+               ((horaInicio >= partidoHoraInicio && horaInicio < partidoHoraFin) ||
+                (horaFin > partidoHoraInicio && horaFin <= partidoHoraFin) ||
+                (horaInicio <= partidoHoraInicio && horaFin >= partidoHoraFin));
+    });
+
+    if (conflictoArbitro) {
+        return 'El árbitro ya tiene un partido asignado en ese horario.';
+    }
+
+    return null;
+}
+
+// ===============================
+// EVENT LISTENER DEL FORMULARIO
+// ===============================
+
+document.querySelector('.formulario').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const partidoData = {
+        fecha: form.querySelector('input[type="date"]').value,
+        hora: form.querySelector('input[type="time"]').value,
+        cancha: form.querySelector('select[name="cancha"]').value,
+        arbitro_id: parseInt(form.querySelector('select[name="arbitro"]').value),
+        equipo1: form.querySelector('input[name="equipo1"]').value.trim(),
+        equipo2: form.querySelector('input[name="equipo2"]').value.trim()
+    };
+
+    // Validación de campos completos
+    if (!partidoData.fecha || !partidoData.hora || !partidoData.cancha ||
+        !partidoData.arbitro_id || !partidoData.equipo1 || !partidoData.equipo2) {
+        mostrarMensaje('Por favor completa todos los campos');
+        return;
+    }
+
+    // Validación de espacios entre partidos
+    const errorValidacion = validarEspacioPartidos(
+        partidoData.fecha,
+        partidoData.hora,
+        partidoData.cancha,
+        partidoData.arbitro_id,
+        editandoId
+    );
+
+    if (errorValidacion) {
+        mostrarMensaje(errorValidacion);
+        limpiarFormulario();
+        return;
+    }
+
+    try {
+        let result;
+        if (editandoId) {
+            result = await actualizarPartido(editandoId, partidoData);
+        } else {
+            result = await crearPartido(partidoData);
+        }
+
+        if (result.success) {
+            mostrarMensaje(result.message);
+            partidos = await cargarPartidosDesdeAPI();
+            mostrarPartidos(partidos);
+            mostrarArregloEnConsola();
+            limpiarFormulario();
+        } else {
+            mostrarMensaje(result.message);
+            limpiarFormulario();
+        }
+
+    } catch (error) {
+        mostrarMensaje('Error de conexión');
+        limpiarFormulario();
+    }
 });
+
+// ===============================
+// INICIALIZACIÓN
+// ===============================
+
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        arbitrosDisponibles = await cargarArbitros();
+        llenarDropdownArbitros(arbitrosDisponibles);
+        partidos = await cargarPartidosDesdeAPI();
+        mostrarPartidos(partidos);
+        mostrarArregloEnConsola();
+    } catch (error) {
+        mostrarMensaje('Error al cargar los datos');
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+//cosas de la api
+async function cargarArbitros() {
+    try {
+        const respuesta = await fetch('../php/arbitros_get.php');
+        if (!respuesta.ok) throw new Error('Error en el servidor');
+        const arbitros = await respuesta.json();
+        return arbitros.filter(arbitro => arbitro.disponible === 1 || arbitro.disponible === true);
+    } catch (error) {
+        return [];
+    }
+}
+
+//trae los albitros registrados en la bd
+function llenarDropdownArbitros(arbitros) {
+    const selectArbitro = document.querySelector('select[name="arbitro"]');
+    selectArbitro.innerHTML = '<option value="">Seleccione árbitro</option>';
+    arbitros.forEach(arbitro => {
+        const option = document.createElement('option');
+        option.value = arbitro.id;
+        option.textContent = arbitro.nombre;
+        selectArbitro.appendChild(option);
+    });
+}
+
+
+async function obtenerTodosPartidos() {
+    try {
+        const respuesta = await fetch('../php/partido_get.php');
+        if (!respuesta.ok) throw new Error('Error en el servidor');
+        const partidos = await respuesta.json();
+        return partidos.map(partido => ({
+            ...partido,
+            id: Number(partido.id),
+            arbitro_id: Number(partido.arbitro_id)
+        }));
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+async function crearPartido(partido) {
+    try {
+        const respuesta = await fetch('../php/partido_post.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(partido)
+        });
+        const resultado = await respuesta.json();
+        return resultado;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+async function actualizarPartido(id, partido) {
+    try {
+        const respuesta = await fetch('../php/partido_put.php', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, ...partido })
+        });
+        const resultado = await respuesta.json();
+        return resultado;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+async function eliminarPartido(id) {
+    try {
+        const respuesta = await fetch('../php/partido_delete.php', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id })
+        });
+        const resultado = await respuesta.json();
+        return resultado;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+async function cargarPartidosDesdeAPI() {
+    try {
+        const partidos = await obtenerTodosPartidos();
+        return partidos;
+    } catch (error) {
+        return [];
+    }
+}
+
+//var globales
+let partidos = [];
+let arbitrosDisponibles = [];
+let editandoId = null;
+
+
+// logoca interfaz
+function mostrarPartidos(partidos) {
+    const tbody = document.querySelector('table tbody');
+    tbody.innerHTML = '';
+
+    if (partidos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay partidos programados</td></tr>';
+        return;
+    }
+
+    partidos.forEach(partido => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${partido.fecha}</td>
+            <td>${partido.hora}</td>
+            <td>${partido.cancha}</td>
+            <td>${partido.arbitro_nombre}</td>
+            <td>${partido.equipo1} vs ${partido.equipo2}</td>
+            <td class="celda-acciones">
+                <button class="btn-accion btn-editar" onclick="editarPartido(${partido.id})">Editar</button>
+                <button class="btn-accion btn-eliminar" onclick="eliminarPartidoConfirm(${partido.id})">Eliminar</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+
+function mostrarArregloEnConsola() {
+    console.log('Registro de Partidos');
+    console.log('Total de partidos:', partidos.length);
+    partidos.forEach((partido, index) => {
+        console.log(`${index + 1}. ID: ${partido.id} | ${partido.fecha} ${partido.hora}`);
+        console.log(`   Cancha: ${partido.cancha} | Árbitro: ${partido.arbitro_nombre}`);
+        console.log(`   Partido: ${partido.equipo1} vs ${partido.equipo2}`);
+    });
+
+    console.log('Arbitros disponibles');
+    arbitrosDisponibles.forEach((arbitro, index) => {
+        console.log(`${index + 1}. ID: ${arbitro.id} | ${arbitro.nombre} | Tel: ${arbitro.telefono}`);
+    });
+}
+
+
+function limpiarFormulario() {
+    document.querySelector('.formulario').reset();
+    editandoId = null;
+    document.querySelector('.formulario button').textContent = 'Guardar';
+}
+
+
+function mostrarMensaje(mensaje) {
+    alert(mensaje);
+}
+
+
+function editarPartido(id) {
+    try {
+        const idNumero = Number(id);
+        const partido = partidos.find(p => p.id === idNumero);
+        if (partido) {
+            const form = document.querySelector('.formulario');
+            form.querySelector('input[type="date"]').value = partido.fecha;
+            form.querySelector('input[type="time"]').value = partido.hora;
+            form.querySelector('select[name="cancha"]').value = partido.cancha;
+            form.querySelector('select[name="arbitro"]').value = partido.arbitro_id;
+            form.querySelector('input[name="equipo1"]').value = partido.equipo1;
+            form.querySelector('input[name="equipo2"]').value = partido.equipo2;
+            editandoId = idNumero;
+            form.querySelector('button').textContent = 'Actualizar';
+        }
+    } catch (error) {
+        mostrarMensaje('Error al cargar datos del partido');
+    }
+}
+
+
+function eliminarPartidoConfirm(id) {
+    const idNumero = Number(id);
+    const partido = partidos.find(p => p.id === idNumero);
+    if (partido && confirm('¿Estás seguro de eliminar ' + partido.equipo1 + ' vs ' + partido.equipo2 + '?')) {
+        eliminarPartidoAsync(idNumero);
+    }
+}
+
+async function eliminarPartidoAsync(id) {
+    try {
+        await eliminarPartido(id);
+        partidos = await cargarPartidosDesdeAPI();
+        mostrarPartidos(partidos);
+        mostrarArregloEnConsola();
+        mostrarMensaje('Partido eliminado correctamente');
+    } catch (error) {
+        mostrarMensaje('Error al eliminar partido');
+    }
+}
+
+// validacion de espacios entre partidos de 40 minutos
+function validarEspacioPartidos(fecha, hora, cancha, arbitro_id, partidoId = null) {
+    const horaInicio = new Date(`${fecha}T${hora}`);
+    const horaFin = new Date(horaInicio.getTime() + 40 * 60000); // 40 minutos después
+
+    // si las canchas estan libres
+    const conflictoCancha = partidos.some(partido => {
+        if (partidoId && partido.id === partidoId)
+            return false;
+
+        const partidoHoraInicio = new Date(`${partido.fecha}T${partido.hora}`);
+        const partidoHoraFin = new Date(partidoHoraInicio.getTime() + 40 * 60000);
+
+        return partido.fecha === fecha &&
+            partido.cancha === cancha &&
+            ((horaInicio >= partidoHoraInicio && horaInicio < partidoHoraFin) ||
+                (horaFin > partidoHoraInicio && horaFin <= partidoHoraFin) ||
+                (horaInicio <= partidoHoraInicio && horaFin >= partidoHoraFin));
+    });
+
+    if (conflictoCancha) {
+        return 'La cancha está ocupada en ese horario. Los partidos duran 40 minutos.';
+    }
+
+    // validacion de disponibildad de arbitros
+    const conflictoArbitro = partidos.some(partido => {
+        if (partidoId && partido.id === partidoId)
+            return false;
+
+        const partidoHoraInicio = new Date(`${partido.fecha}T${partido.hora}`);
+        const partidoHoraFin = new Date(partidoHoraInicio.getTime() + 40 * 60000);
+
+        return partido.fecha === fecha &&
+            partido.arbitro_id === arbitro_id &&
+            ((horaInicio >= partidoHoraInicio && horaInicio < partidoHoraFin) ||
+                (horaFin > partidoHoraInicio && horaFin <= partidoHoraFin) ||
+                (horaInicio <= partidoHoraInicio && horaFin >= partidoHoraFin));
+    });
+
+    if (conflictoArbitro) {
+        return 'El árbitro ya tiene un partido asignado en ese horario.';
+    }
+
+    return null;
+}
+
+ //eventos
+document.querySelector('.formulario').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const partidoData = {
+        fecha: form.querySelector('input[type="date"]').value,
+        hora: form.querySelector('input[type="time"]').value,
+        cancha: form.querySelector('select[name="cancha"]').value,
+        arbitro_id: parseInt(form.querySelector('select[name="arbitro"]').value),
+        equipo1: form.querySelector('input[name="equipo1"]').value.trim(),
+        equipo2: form.querySelector('input[name="equipo2"]').value.trim()
+    };
+
+    //validacion de campos completos
+    if (!partidoData.fecha || !partidoData.hora || !partidoData.cancha ||
+        !partidoData.arbitro_id || !partidoData.equipo1 || !partidoData.equipo2) {
+        mostrarMensaje('Por favor completa todos los campos');
+        return;
+    }
+
+    //validacion de espacios entre partidos de 40 minutos
+    const errorValidacion = validarEspacioPartidos(
+        partidoData.fecha,
+        partidoData.hora,
+        partidoData.cancha,
+        partidoData.arbitro_id,
+        editandoId // Pasar id si se esta editando
+    );
+
+    if (errorValidacion) {
+        mostrarMensaje(errorValidacion);
+        return;
+    }
+
+    try {
+        let result;
+        if (editandoId) {
+            result = await actualizarPartido(editandoId, partidoData);
+        } else {
+            result = await crearPartido(partidoData);
+        }
+
+        if (result.success) {
+            mostrarMensaje(result.message);
+            partidos = await cargarPartidosDesdeAPI();
+            mostrarPartidos(partidos);
+            mostrarArregloEnConsola();
+            limpiarFormulario();
+        } else {
+            mostrarMensaje(result.message);
+        }
+
+    } catch (error) {
+        mostrarMensaje('Error de conexión');
+    }
+});
+
+// inicializacion
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        arbitrosDisponibles = await cargarArbitros();
+        llenarDropdownArbitros(arbitrosDisponibles);
+        partidos = await cargarPartidosDesdeAPI();
+        mostrarPartidos(partidos);
+        mostrarArregloEnConsola();
+    } catch (error) {
+        mostrarMensaje('Error al cargar los datos');
+    }
+});*/
