@@ -17,7 +17,6 @@
       <h1>Administración de Canchas de Fútbol</h1>
     </div>
     <div class="header-bottom">
-
       <nav>
         <ul>
           <li><a href="#">Partidos</a></li>
@@ -25,7 +24,6 @@
           <li><a href="../html/equipos.html">Equipos</a></li>
         </ul>
       </nav>
-
       <div id="sesion-item">
         <a href="../html/Inicioo.html">Cerrar Sesión</a>
       </div>
@@ -34,20 +32,25 @@
 
   <section id="partidos" class="modulo">
     <h2>Próximos Partidos</h2>
+    
     <form class="formulario">
-      <input type="date" />
-      <input type="time" />
-      <select>
-        <option>Cancha 1</option>
-        <option>Cancha 2</option>
+      <input type="date" name="fecha" required />
+      <input type="time" name="hora" required />
+      <select name="cancha" required>
+        <option value="">Seleccione cancha</option>
+        <option value="Cancha 1">Cancha 1</option>
+        <option value="Cancha 2">Cancha 2</option>
+        <option value="Cancha 3">Cancha 3</option>
+        <option value="Cancha 4">Cancha 4</option>
+        <option value="Cancha 5">Cancha 5</option>
       </select>
-      <select>
-        <option>Árbitro 1</option>
-        <option>Árbitro 2</option>
+      <select name="arbitro" required>
+        <option value="">Seleccione árbitro</option>
+        <!-- los arbitros se llenan de bd-->
       </select>
-      <input type="text" placeholder="Equipo 1" />
-      <input type="text" placeholder="Equipo 2" />
-      <button>Guardar</button>
+      <input type="text" name="equipo1" placeholder="Equipo 1" required />
+      <input type="text" name="equipo2" placeholder="Equipo 2" required />
+      <button type="submit">Guardar</button>
     </form>
 
     <table>
@@ -62,32 +65,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>2025-11-10</td>
-          <td>10:00</td>
-          <td>Cancha 1</td>
-          <td>Juan Pérez</td>
-          <td>Tigres vs Lobos</td>
-          <td class="celda-acciones">
-            <button class="btn-accion btn-editar">Editar</button>
-            <button class="btn-accion btn-eliminar">Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>2025-11-12</td>
-          <td>14:00</td>
-          <td>Cancha 2</td>
-          <td>María García</td>
-          <td>Leones vs Águilas</td>
-          <td class="celda-acciones">
-            <button class="btn-accion btn-editar">Editar</button>
-            <button class="btn-accion btn-eliminar">Eliminar</button>
-          </td>
-        </tr>
+        <!-- los partidos tmb se cargaran dinamicamente desde la bd-->
       </tbody>
     </table>
   </section>
 
+  
+  <script src="../javascript/partidos.js"></script>
+  
 
 </body>
 

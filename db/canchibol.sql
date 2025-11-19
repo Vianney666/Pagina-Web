@@ -3,30 +3,25 @@ CREATE DATABASE canchibol;
 USE canchibol;
 
 CREATE TABLE arbitro (
-    id INT(11) NOT NULL AUTO_INCREMENT,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(200) NOT NULL,
-    correo VARCHAR(100) NOT NULL,
-    telefono VARCHAR(20) NOT NULL,
-    disponible TINYINT(1) DEFAULT 1,
-    fechaRegistro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    PRIMARY KEY (id)
+    email VARCHAR(200),
+    telefono VARCHAR(20) not null,
+    disponible BOOLEAN DEFAULT TRUE,
+    fechaRegistro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE `cancha` (
-  `IdCancha` int(20) NOT NULL,
-  `ancho` int(11) NOT NULL,
-  `largo` int(11) NOT NULL,
-  `tipoPasto` varchar(50) NOT NULL
-)
+CREATE TABLE partido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    hora TIME NOT NULL,
+    cancha VARCHAR(100) NOT NULL,
+    arbitro_id INT NOT NULL,          
+    equipo1 VARCHAR(100) NOT NULL,
+    equipo2 VARCHAR(100) NOT NULL,
+    FOREIGN KEY (arbitro_id) REFERENCES arbitro(id) 
+);
 
-CREATE TABLE `partido` (
-  `titular` varchar(200) NOT NULL,
-  `equipo1` varchar(50) NOT NULL,
-  `equipo2` varchar(50) NOT NULL,
-  `fecha` date NOT NULL,
-  `hora` time NOT NULL,
-  `cancha` text NOT NULL
-)
 
 CREATE TABLE `users` (
   `nombre` varchar(200) NOT NULL,
@@ -37,16 +32,3 @@ CREATE TABLE `users` (
   `contrasenia` varchar(50) NOT NULL
 )
 
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`numEmpleado`);
-
-ALTER TABLE `cancha`
-  MODIFY `IdCancha` int(20) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `users`
-  MODIFY `numEmpleado` int(15) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `arbitro` DROP `apellidoPaterno`;
-
-ALTER TABLE `arbitro` DROP `apellidoMaterno`;
-COMMIT;
