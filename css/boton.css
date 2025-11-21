@@ -1,0 +1,38 @@
+/* css minimo para boton de eliminado */
+        .modulo-header {
+            display: flex;
+            justify-content: space-between ;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            width: 100% ;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-toggle {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: #3A5A40;
+            color: white;
+            border: none ;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-toggle:hover {
+            background-color: #588157;
+        }
+
+        #contadorDesactivados {
+            color: #8B4513;
+            font-weight: bold;
+            font-size: 14px;
+        }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/boton.css">
     <title>Equipos</title>
 </head>
 
@@ -33,13 +34,25 @@
     </header>
 
     <section id="equipos" class="modulo">
-        <h2>Gestión de Equipos</h2>
-        <form class="formulario">
-            <input type="text" placeholder="Nombre del equipo" />
-            <input type="text" placeholder="Representante" />
-            <input type="text" placeholder="Teléfono de contacto" />
-            <button>Guardar</button>
+        <div class="modulo-header">
+            <h2>Gestión de Equipos</h2>
+            <div class="header-actions">
+                <button id="btnAlternarVista" class="btn-toggle">
+                    Eliminado recientemente
+                </button>
+                <span id="contadorDesactivados"></span>
+            </div>
+        </div>
+
+        <form class="formulario" id="formEquipo">
+            <input type="text" id="nombreEquipo" placeholder="Nombre del equipo" required>
+            <input type="text" id="representante" placeholder="Representante" required>
+            <input type="text" id="telefono" placeholder="Teléfono de contacto" required>
+            <button type="submit" id="btnGuardar">Guardar</button>
+            <button type="button" id="btnCancelar" style="display: none;">Cancelar</button>
         </form>
+
+        <div id="mensajeEstado" class="mensaje-estado" style="display: none;"></div>
 
         <table>
             <thead>
@@ -50,28 +63,13 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Tigres FC</td>
-                    <td>Pedro López</td>
-                    <td>555-4321</td>
-                    <td class="celda-acciones">
-                        <button class="btn-accion btn-editar">Editar</button>
-                        <button class="btn-accion btn-eliminar">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Atlas FC</td>
-                    <td>Juan Perez</td>
-                    <td>555-1234</td>
-                    <td class="celda-acciones">
-                        <button class="btn-accion btn-editar">Editar</button>
-                        <button class="btn-accion btn-eliminar">Eliminar</button>
-                    </td>
-                </tr>
+            <tbody id="tablaEquipos">
+                <!-- Los equipos aqui se cargan del arreglo -->
             </tbody>
         </table>
     </section>
+
+    <script src="../javascript/equipos.js"></script>
 
 </body>
 

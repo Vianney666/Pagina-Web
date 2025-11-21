@@ -6,7 +6,7 @@
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background: url(/img/fondoInicio.jpg) no-repeat center top / cover;
+    background: url(../img/fondoInicio.jpg) no-repeat center top / cover;
     background-attachment: fixed;
     color: white;
     min-height: 100vh;
