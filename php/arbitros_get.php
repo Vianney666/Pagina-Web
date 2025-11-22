@@ -2,9 +2,6 @@
 <?php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header("Cache-Control: no-cache, no-store, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: 0");
 
 include_once 'conexion.php';
 
@@ -17,20 +14,23 @@ if (!$conexion) {
     exit;
 }
 
-$sql = "SELECT id, nombre, telefono, email, disponible FROM arbitro ORDER BY id";
+// CAMBIO: Solo obtener árbitros activos (estado = 1)
+$sql = "SELECT * FROM arbitro WHERE estado = 1 ORDER BY nombre";
 $resultado = $conexion->query($sql);
 
-if ($resultado && $resultado->num_rows > 0) {
-    $arbitros = [];
-    while($fila = $resultado->fetch_assoc()) {
-        // convierte disponible al boleano
-        $fila['disponible'] = (bool)$fila['disponible'];
-        $arbitros[] = $fila;
-    }
-    echo json_encode($arbitros);
-} else {
-    echo json_encode([]);
+if (!$resultado) {
+    http_response_code(500);
+    echo json_encode(["error" => "Error en la consulta: " . $conexion->error]);
+    exit;
 }
 
+$arbitros = [];
+while ($fila = $resultado->fetch_assoc()) {
+    $arbitros[] = $fila;
+}
+
+echo json_encode($arbitros);
+
 $conexion->close();
+
 ?>

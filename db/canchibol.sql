@@ -11,6 +11,9 @@ CREATE TABLE arbitro (
     fechaRegistro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE arbitro 
+ADD estado TINYINT(1) DEFAULT 1 COMMENT '1=activo, 0=inactivo';
+
 CREATE TABLE equipos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL UNIQUE,

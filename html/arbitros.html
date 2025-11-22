@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Árbitros</title>
   <link rel="stylesheet" href="../css/arbitros.css">
+  <link rel="stylesheet" href="../css/boton.css">
 </head>
 
 <body>
@@ -34,7 +35,16 @@
   </header>
 
   <section id="arbitros" class="modulo">
-    <h2>Lista de Árbitros</h2>
+    <div class="modulo-header">
+      <h2>Gestión de Árbitros</h2>
+      <div class="header-actions">
+        <button id="btnAlternarVistaArbitros" class="btn-toggle">
+          Eliminado recientemente
+        </button>
+        <span id="contadorArbitrosDesactivados"></span>
+      </div>
+    </div>
+
 
     <div id="mensajeEstado" class="mensaje-estado" style="display: none;"></div>
 
@@ -43,12 +53,12 @@
       <input type="text" id="nombreArbitro" placeholder="Nombre del árbitro" required>
       <input type="tel" id="telefonoArbitro" placeholder="Teléfono" required>
       <input type="email" id="correoArbitro" placeholder="Correo" required>
-      <select id="estadoArbitro" required>
+      <select id="estadoArbitro" name="estadoArbitro" required>
         <option value="true">Disponible</option>
         <option value="false">No disponible</option>
       </select>
       <button type="submit" id="btnGuardar">Guardar</button>
-      <button type="button" id="btnCancelar">Cancelar</button> 
+      <button type="button" id="btnCancelar">Cancelar</button>
     </form>
 
     <div class="tabla-container">
@@ -69,8 +79,11 @@
     </div>
   </section>
 
-  <script src="../javascript/arbitros.js"></script>
+  <script src="../javascript/gestionArbitro.js"></script>
+
+
 
 </body>
+
 
 </html>

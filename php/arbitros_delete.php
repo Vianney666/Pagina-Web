@@ -23,7 +23,8 @@ if (!$conexion) {
     exit;
 }
 
-$sql = "DELETE FROM arbitro WHERE id = ?";
+// CAMBIO IMPORTANTE: En lugar de DELETE, hacemos UPDATE del estado
+$sql = "UPDATE arbitro SET estado = 0 WHERE id = ?";
 $stmt = $conexion->prepare($sql);
 
 if (!$stmt) {
@@ -35,12 +36,13 @@ if (!$stmt) {
 $stmt->bind_param("i", $data['id']);
 
 if ($stmt->execute()) {
-    echo json_encode(["success" => true, "message" => "Árbitro eliminado"]);
+    echo json_encode(["success" => true, "message" => "Árbitro desactivado correctamente"]);
 } else {
     http_response_code(500);
-    echo json_encode(["success" => false, "error" => "Error al eliminar: " . $stmt->error]);
+    echo json_encode(["success" => false, "error" => "Error al desactivar: " . $stmt->error]);
 }
 
 $stmt->close();
 $conexion->close();
+
 ?>
