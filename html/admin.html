@@ -48,8 +48,14 @@
         <option value="">Seleccione árbitro</option>
         <!-- los arbitros se llenan de bd-->
       </select>
-      <input type="text" name="equipo1" placeholder="Equipo 1" required />
-      <input type="text" name="equipo2" placeholder="Equipo 2" required />
+      <select name="equipo1" required>
+        <option value="">Seleccione equipo 1</option>
+        <!-- Se llenará automáticamente desde JavaScript -->
+      </select>
+      <select name="equipo2" required>
+        <option value="">Seleccione equipo 2</option>
+        <!-- Se llenará automáticamente desde JavaScript -->
+      </select>
       <button type="submit">Guardar</button>
     </form>
 
@@ -71,7 +77,7 @@
   </section>
 
   
-  <script src="../javascript/partidos.js"></script>
+  <script src="../javascript/calendario.js"></script>
   
 
 </body>
