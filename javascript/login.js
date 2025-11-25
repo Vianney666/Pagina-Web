@@ -1,4 +1,3 @@
-
 const togglePassword = document.getElementById('togglePassword');
     const password = document.getElementById('password');
     togglePassword.addEventListener('click', () => {
@@ -27,5 +26,3 @@ const togglePassword = document.getElementById('togglePassword');
         <a href="tabla_de_partidos.html" class="btn-login"></a>
       }
     });
-
-    

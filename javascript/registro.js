@@ -68,3 +68,4 @@ const togglePass1 = document.getElementById('togglePass1');
         alert("Registro exitoso");
       }
     });
+

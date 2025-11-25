@@ -1,330 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-   <link rel="stylesheet" href="../css/inicio.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio - Canchibol</title>
+<link rel="stylesheet" href="../css/inicio.css" />
 </head>
 <body>
-    <header>
-         <a class="logo-class" href="#">
-      <img src="../img/logo_canchas.png" alt="Logo de pagina">
-    </a>
-    </header>
-    <main>
-        <div class="contenido" id="contenido-principal">
-            <h2>Bienvenido a</h2>
-            <h1>CANCHIBOL</h1>
-            <div class="botones">
-                <a href="../html/Loginn.html" class="btn">Iniciar sesión</a>
-                <a href="../html/Registro.html" class="btn">Registrarse</a>
+<header>
+<a class="logo-class" href="#">
+<img src="../img/logo_canchas.png" alt="Logo de pagina">
+</a>
+</header>
+<main>
+    <div class="contenido" id="contenido-principal">
+        <h2>Bienvenido a</h2>
+        <h1>CANCHIBOL</h1>
+        <div class="botones">
+            <a href="../html/Loginn.html" class="btn">Iniciar sesión</a>
+            <a href="../html/Registro.html" class="btn">Registrarse</a>
+        </div>
+    </div>
+
+    <div class="encabezado" id="encabezado-calendario">
+        <h2>Próximos partidos</h2>
+
+        <div class="calendario">
+            <ul class="pj_lista">
+                <!-- Se llenará dinámicamente desde JavaScript -->
+            </ul>
+        </div>
+
+        <!-- DÍA ACTUAL -->
+        <section class="dia_actual">
+            <div class="fecha_actual">
+                <div class="hoja_cal">
+                    <span class="hc_top">NOV</span>
+                    <span class="hc_day">7</span>
+                </div>
+                <div class="pj_info">
+                    <div class="titulo_dia">hoy viernes</div>
+                    <div class="partidos_programados">2 partidos programados</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- TABLAS DE JUEGOS - Se generarán dinámicamente para los próximos 7 días -->
+    <section class="tabla_de_juegos" id="tabla-dia1">
+        <div class="contenedor-tabla modulo">
+            <h2>CALENDARIO DE PARTIDOS</h2>
+
+            <div class="seccion-estadio">
+                <h1 class="nombre-estadio"></h1>
+                <h2 class="fecha-estadio"></h2>
+                <table class="tabla-partidos">
+                    <thead>
+                        <tr>
+                            <th>HORA</th>
+                            <th>EQUIPO LOCAL</th>
+                            <th></th>
+                            <th>EQUIPO VISITANTE</th>
+                            <th>CAMPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
             </div>
         </div>
-         
-        <div class="encabezado" id="encabezado-calendario">
-            <h2>Próximos partidos</h2>
+    </section>
 
-            <div class="calendario">
-                <ul class="pj_lista">
-                    <!-- Cada día ahora tiene onclick y data-dia -->
-                    <li onclick="mostrarDia('dia1')" data-dia="dia1" class="tab-dia active">
-                        <span class="pj_dia_txt">Vie</span>
-                        <span class="pj_dia">7</span>
-                        <span class="pj_cant_partidos">2</span>
-                    </li>
-                    <li onclick="mostrarDia('dia2')" data-dia="dia2" class="tab-dia">
-                        <span class="pj_dia_txt">Sáb</span>
-                        <span class="pj_dia">8</span>
-                        <span class="pj_cant_partidos">2</span>
-                    </li>
-                    <li onclick="mostrarDia('dia3')" data-dia="dia3" class="tab-dia">
-                        <span class="pj_dia_txt">Dom</span>
-                        <span class="pj_dia">9</span>
-                        <span class="pj_cant_partidos">2</span>
-                    </li>
-                    <li onclick="mostrarDia('dia4')" data-dia="dia4" class="tab-dia">
-                        <span class="pj_dia_txt">Lun</span>
-                        <span class="pj_dia">10</span>
-                        <span class="pj_cant_partidos">1</span>
-                    </li>
-                    <li onclick="mostrarDia('dia5')" data-dia="dia5" class="tab-dia">
-                        <span class="pj_dia_txt">Mar</span>
-                        <span class="pj_dia">11</span>
-                        <span class="pj_cant_partidos">1</span>
-                    </li>
-                    <li onclick="mostrarDia('dia6')" data-dia="dia6" class="tab-dia">
-                        <span class="pj_dia_txt">Mié</span>
-                        <span class="pj_dia">12</span>
-                        <span class="pj_cant_partidos">1</span>
-                    </li>
-                    <li onclick="mostrarDia('dia7')" data-dia="dia7" class="tab-dia">
-                        <span class="pj_dia_txt">Jue</span>
-                        <span class="pj_dia">13</span>
-                        <span class="pj_cant_partidos">1</span>
-                    </li>
-                </ul>
+    <section class="tabla_de_juegos" id="tabla-dia2" style="display: none;">
+        <div class="contenedor-tabla modulo">
+            <h2>CALENDARIO DE PARTIDOS</h2>
+
+            <div class="seccion-estadio">
+                <h1 class="nombre-estadio"></h1>
+                <h2 class="fecha-estadio"></h2>
+                <table class="tabla-partidos">
+                    <thead>
+                        <tr>
+                            <th>HORA</th>
+                            <th>EQUIPO LOCAL</th>
+                            <th></th>
+                            <th>EQUIPO VISITANTE</th>
+                            <th>CAMPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
             </div>
-
-            <!-- DÍA ACTUAL -->
-            <section class="dia_actual">
-                <div class="fecha_actual">
-                    <div class="hoja_cal">
-                        <span class="hc_top">NOV</span>
-                        <span class="hc_day">7</span>
-                    </div>
-                    <div class="pj_info">
-                        <div class="titulo_dia">hoy viernes</div>
-                        <div class="partidos_programados">2 partidos programados</div>
-                    </div>
-                </div>
-            </section>
         </div>
-      
-        <!-- TABLAS DE JUEGOS - Cada una con su id único -->
-        <section class="tabla_de_juegos" id="tabla-dia1">
-            <div class="contenedor-tabla modulo">
-                <h2>CALENDARIO DE PARTIDOS - VIERNES 7</h2>
-                
-                <div class="seccion-estadio">
-                    <h1 class="nombre-estadio"></h1>
-                    <h2 class="fecha-estadio">VIERNES 07 DE NOVIEMBRE 2025</h2>
-                    <table class="tabla-partidos">
-                        <thead>
-                            <tr>
-                                <th>HORA</th>
-                                <th>EQUIPO LOCAL</th>
-                                <th></th>
-                                <th>EQUIPO VISITANTE</th>
-                                <th>CAMPO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="hora-partido">08:50</td>
-                                <td class="equipo-local">RHINOS</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">DEPORTIVO DINA</td>
-                                <td class="campo">1</td>
-                            </tr>
-                            <tr>
-                                <td class="hora-partido">08:50</td>
-                                <td class="equipo-local">FRANCO CANADIENSE</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">RVA INSTALACIONES</td>
-                                <td class="campo">2</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+    </section>
 
-        <section class="tabla_de_juegos" id="tabla-dia2" style="display: none;">
-            <div class="contenedor-tabla modulo">
-                <h2>CALENDARIO DE PARTIDOS - SÁBADO 8</h2>
-                
-                <div class="seccion-estadio">
-                    <h1 class="nombre-estadio"></h1>
-                    <h2 class="fecha-estadio">SÁBADO 08 DE NOVIEMBRE 2025</h2>
-                    <table class="tabla-partidos">
-                        <thead>
-                            <tr>
-                                <th>HORA</th>
-                                <th>EQUIPO LOCAL</th>
-                                <th></th>
-                                <th>EQUIPO VISITANTE</th>
-                                <th>CAMPO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="hora-partido">09:00</td>
-                                <td class="equipo-local">LIVERPOOL</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">REAL ACADEMICOS</td>
-                                <td class="campo">1</td>
-                            </tr>
-                            <tr>
-                                <td class="hora-partido">10:30</td>
-                                <td class="equipo-local">UNIVERSIDAD</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">VENUS UNITED</td>
-                                <td class="campo">2</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+    <section class="tabla_de_juegos" id="tabla-dia3" style="display: none;">
+        <div class="contenedor-tabla modulo">
+            <h2>CALENDARIO DE PARTIDOS</h2>
 
-        <section class="tabla_de_juegos" id="tabla-dia3" style="display: none;">
-            <div class="contenedor-tabla modulo">
-                <h2>CALENDARIO DE PARTIDOS - DOMINGO 9</h2>
-                
-                <div class="seccion-estadio">
-                    <h1 class="nombre-estadio"></h1>
-                    <h2 class="fecha-estadio">DOMINGO 09 DE NOVIEMBRE 2025</h2>
-                    <table class="tabla-partidos">
-                        <thead>
-                            <tr>
-                                <th>HORA</th>
-                                <th>EQUIPO LOCAL</th>
-                                <th></th>
-                                <th>EQUIPO VISITANTE</th>
-                                <th>CAMPO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="hora-partido">08:50</td>
-                                <td class="equipo-local">MORELLA</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">CHELSEA</td>
-                                <td class="campo">1</td>
-                            </tr>
-                            <tr>
-                                <td class="hora-partido">10:00</td>
-                                <td class="equipo-local">SURTIDO RICO</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">REAL FC</td>
-                                <td class="campo">2</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="seccion-estadio">
+                <h1 class="nombre-estadio"></h1>
+                <h2 class="fecha-estadio"></h2>
+                <table class="tabla-partidos">
+                    <thead>
+                        <tr>
+                            <th>HORA</th>
+                            <th>EQUIPO LOCAL</th>
+                            <th></th>
+                            <th>EQUIPO VISITANTE</th>
+                            <th>CAMPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="tabla_de_juegos" id="tabla-dia4" style="display: none;">
-            <div class="contenedor-tabla modulo">
-                <h2>CALENDARIO DE PARTIDOS - LUNES 10</h2>
-                
-                <div class="seccion-estadio">
-                    <h1 class="nombre-estadio"></h1>
-                    <h2 class="fecha-estadio">LUNES 10 DE NOVIEMBRE 2025</h2>
-                    <table class="tabla-partidos">
-                        <thead>
-                            <tr>
-                                <th>HORA</th>
-                                <th>EQUIPO LOCAL</th>
-                                <th></th>
-                                <th>EQUIPO VISITANTE</th>
-                                <th>CAMPO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="hora-partido">19:00</td>
-                                <td class="equipo-local">LOS JEQUES</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">REAL SOCIEDAD</td>
-                                <td class="campo">1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <section class="tabla_de_juegos" id="tabla-dia4" style="display: none;">
+        <div class="contenedor-tabla modulo">
+            <h2>CALENDARIO DE PARTIDOS</h2>
+
+            <div class="seccion-estadio">
+                <h1 class="nombre-estadio"></h1>
+                <h2 class="fecha-estadio"></h2>
+                <table class="tabla-partidos">
+                    <thead>
+                        <tr>
+                            <th>HORA</th>
+                            <th>EQUIPO LOCAL</th>
+                            <th></th>
+                            <th>EQUIPO VISITANTE</th>
+                            <th>CAMPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="tabla_de_juegos" id="tabla-dia5" style="display: none;">
-            <div class="contenedor-tabla modulo">
-                <h2>CALENDARIO DE PARTIDOS - MARTES 11</h2>
-                
-                <div class="seccion-estadio">
-                    <h1 class="nombre-estadio"></h1>
-                    <h2 class="fecha-estadio">MARTES 11 DE NOVIEMBRE 2025</h2>
-                    <table class="tabla-partidos">
-                        <thead>
-                            <tr>
-                                <th>HORA</th>
-                                <th>EQUIPO LOCAL</th>
-                                <th></th>
-                                <th>EQUIPO VISITANTE</th>
-                                <th>CAMPO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="hora-partido">20:00</td>
-                                <td class="equipo-local">BACACHITOS</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">DEPORTIVO MCY</td>
-                                <td class="campo">1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <section class="tabla_de_juegos" id="tabla-dia5" style="display: none;">
+        <div class="contenedor-tabla modulo">
+            <h2>CALENDARIO DE PARTIDOS</h2>
+
+            <div class="seccion-estadio">
+                <h1 class="nombre-estadio"></h1>
+                <h2 class="fecha-estadio"></h2>
+                <table class="tabla-partidos">
+                    <thead>
+                        <tr>
+                            <th>HORA</th>
+                            <th>EQUIPO LOCAL</th>
+                            <th></th>
+                            <th>EQUIPO VISITANTE</th>
+                            <th>CAMPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="tabla_de_juegos" id="tabla-dia6" style="display: none;">
-            <div class="contenedor-tabla modulo">
-                <h2>CALENDARIO DE PARTIDOS - MIÉRCOLES 12</h2>
-                
-                <div class="seccion-estadio">
-                    <h1 class="nombre-estadio"></h1>
-                    <h2 class="fecha-estadio">MIÉRCOLES 12 DE NOVIEMBRE 2025</h2>
-                    <table class="tabla-partidos">
-                        <thead>
-                            <tr>
-                                <th>HORA</th>
-                                <th>EQUIPO LOCAL</th>
-                                <th></th>
-                                <th>EQUIPO VISITANTE</th>
-                                <th>CAMPO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="hora-partido">18:00</td>
-                                <td class="equipo-local">RED DEVILS</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">COLOMBIA</td>
-                                <td class="campo">1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <section class="tabla_de_juegos" id="tabla-dia6" style="display: none;">
+        <div class="contenedor-tabla modulo">
+            <h2>CALENDARIO DE PARTIDOS</h2>
+
+            <div class="seccion-estadio">
+                <h1 class="nombre-estadio"></h1>
+                <h2 class="fecha-estadio"></h2>
+                <table class="tabla-partidos">
+                    <thead>
+                        <tr>
+                            <th>HORA</th>
+                            <th>EQUIPO LOCAL</th>
+                            <th></th>
+                            <th>EQUIPO VISITANTE</th>
+                            <th>CAMPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="tabla_de_juegos" id="tabla-dia7" style="display: none;">
-            <div class="contenedor-tabla modulo">
-                <h2>CALENDARIO DE PARTIDOS - JUEVES 13</h2>
-                
-                <div class="seccion-estadio">
-                    <h1 class="nombre-estadio"></h1>
-                    <h2 class="fecha-estadio">JUEVES 13 DE NOVIEMBRE 2025</h2>
-                    <table class="tabla-partidos">
-                        <thead>
-                            <tr>
-                                <th>HORA</th>
-                                <th>EQUIPO LOCAL</th>
-                                <th></th>
-                                <th>EQUIPO VISITANTE</th>
-                                <th>CAMPO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="hora-partido">19:30</td>
-                                <td class="equipo-local">BARRIOS UNIDOS</td>
-                                <td class="vs">VS</td>
-                                <td class="equipo-visitante">TAPATIAS</td>
-                                <td class="campo">1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <section class="tabla_de_juegos" id="tabla-dia7" style="display: none;">
+        <div class="contenedor-tabla modulo">
+            <h2>CALENDARIO DE PARTIDOS</h2>
+
+            <div class="seccion-estadio">
+                <h1 class="nombre-estadio"></h1>
+                <h2 class="fecha-estadio"></h2>
+                <table class="tabla-partidos">
+                    <thead>
+                        <tr>
+                            <th>HORA</th>
+                            <th>EQUIPO LOCAL</th>
+                            <th></th>
+                            <th>EQUIPO VISITANTE</th>
+                            <th>CAMPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
             </div>
-        </section>
-    </main>
-    
-    <footer>
-        © 2025 Canchibol - Todos los derechos reservados
-    </footer>
+        </div>
+    </section>
+</main>
 
-    <script src="../javascript/inicio.js"></script>
+<footer>
+    © 2025 Canchibol - Todos los derechos reservados
+</footer>
+
+<script src="../javascript/inicio-calendario.js"></script>
 </body>
 </html>

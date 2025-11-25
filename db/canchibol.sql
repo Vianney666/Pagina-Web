@@ -55,4 +55,3 @@ CREATE TABLE `users` (
   `correo` varchar(300) NOT NULL,
   `contrasenia` varchar(50) NOT NULL
 )
-
