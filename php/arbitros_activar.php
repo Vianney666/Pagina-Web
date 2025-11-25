@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
     
-    // Reactivar árbitro (cambiar estado a 1)
+    // Reactivar arbitro (cambiar estado a 1)
     $sql = "UPDATE arbitro SET estado = 1 WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);

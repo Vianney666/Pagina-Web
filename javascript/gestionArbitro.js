@@ -297,7 +297,6 @@ function actualizarContadorArbitros() {
 }
 
 
-//formulario
 function limpiarFormulario() {
     document.getElementById('formArbitro').reset();
     editandoId = null;
@@ -330,7 +329,6 @@ function editarArbitro(id) {
 }
 
 
-//delete
 function eliminarArbitroConfirm(id) {
     const idNumero = Number(id);
     const arbitro = arbitros.find(a => a.id === idNumero);
@@ -370,8 +368,7 @@ async function eliminarArbitroAsync(id) {
     }
 }
 
-// ========== VALIDACIONES DE FORMULARIO ==========
-
+// validaciones para el formulario
 function configurarEventosFormulario() {
     const formArbitro = document.getElementById('formArbitro');
     if (formArbitro) {

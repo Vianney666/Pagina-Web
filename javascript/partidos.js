@@ -1,4 +1,4 @@
-// 
+ 
 class NodoPartido {
     constructor(partido) {
         this.partido = partido;
@@ -12,7 +12,7 @@ class ListaPartidosEnlazada {
         this.tamanio = 0;
     }
 
-
+    
     verificarConflictoRecursivo(nodo, nuevoPartido, partidoId = null) {
         if (!nodo) {
             return null;
@@ -60,12 +60,12 @@ class ListaPartidosEnlazada {
         const minutos1 = h1 * 60 + m1;
         const minutos2 = h2 * 60 + m2;
 
-        // los partidos duran 40 minutos porque yo creo q si
+        // los partidos duran 40 minutos
         return Math.abs(minutos1 - minutos2) < 40;
     }
 
 
-    // Ordenamiento por insercion que acmoda partidos por fecha y hora
+    // Ordenamiento por insercion que acomoda partidos por fecha y hora
     insertarOrdenado(partido) {
         const nuevoNodo = new NodoPartido(partido);
 
@@ -247,32 +247,48 @@ class SistemaPartidosCompleto {
         }
     }
 
-
-    async cargarArbitros() {
-        try {
-            const respuesta = await fetch('../php/arbitros_get.php');
-            if (!respuesta.ok) throw new Error('Error en el servidor');
-            const arbitros = await respuesta.json();
-            this.arbitrosDisponibles = arbitros.filter(arbitro => arbitro.disponible === 1 || arbitro.disponible === true);
-            this.llenarDropdownArbitros();
-            return this.arbitrosDisponibles;
-        } catch (error) {
-            console.error('Error cargando árbitros:', error);
-            return [];
-        }
+    // cargar arbitros existentes en BD y llenar menus desplegables
+   async cargarArbitros() {
+    try {
+        const timestamp = new Date().getTime();
+        const respuesta = await fetch(`../php/arbitros_get.php?t=${timestamp}`);
+        
+        if (!respuesta.ok) throw new Error('Error en el servidor');
+        
+        const arbitros = await respuesta.json();
+        
+        // Convertir todos los campos a numeros
+        this.arbitrosDisponibles = arbitros.map(arbitro => ({
+            ...arbitro,
+            id: Number(arbitro.id),
+            disponible: Number(arbitro.disponible),
+            estado: Number(arbitro.estado)
+        })).filter(arbitro => 
+            arbitro.estado === 1 && 
+            arbitro.disponible === 1
+        );
+        
+        this.llenarDropdownArbitros();
+        return this.arbitrosDisponibles;
+        
+    } catch (error) {
+        console.error('Error cargando arbitros:', error);
+        return [];
     }
+}
 
-    llenarDropdownArbitros() {
-        const selectArbitro = document.querySelector('select[name="arbitro"]');
-        selectArbitro.innerHTML = '<option value="">Seleccione árbitro</option>';
+llenarDropdownArbitros() {
+    const selectArbitro = document.querySelector('select[name="arbitro"]');
+    selectArbitro.innerHTML = '<option value="">Seleccione árbitro</option>';
 
-        this.arbitrosDisponibles.forEach(arbitro => {
-            const option = document.createElement('option');
-            option.value = arbitro.id;
-            option.textContent = arbitro.nombre;
-            selectArbitro.appendChild(option);
-        });
-    }
+    this.arbitrosDisponibles.forEach(arbitro => {
+        const option = document.createElement('option');
+        option.value = arbitro.id;
+        option.textContent = arbitro.nombre;
+        selectArbitro.appendChild(option);
+    });
+}
+
 
     async cargarPartidos() {
         try {
@@ -450,17 +466,17 @@ class SistemaPartidosCompleto {
         alert(mensaje);
     }
 
-    // nombres de equipo en lugar de ids de bd
+    // mostrar nombres de equipo en lugar de ids de bd
     obtenerNombreEquipo(idEquipo) {
         const equipo = this.equipos.find(e => e.id == idEquipo);
         return equipo ? equipo.nombre : `Equipo ${idEquipo}`;
     }
 
-    // Mostrar estructuras en consola para demostración
+    // Mostrar estructura en consola
     mostrarEnConsola() {
         console.log('Total de partidos registrdos:', this.partidosArray.length);
         this.partidosArray.forEach((partido, index) => {
-            const horaFormateada = partido.hora.substring(0, 5); // Quitar segundos si existen
+            const horaFormateada = partido.hora.substring(0, 5); 
             const equipo1Nombre = this.obtenerNombreEquipo(partido.equipo1);
             const equipo2Nombre = this.obtenerNombreEquipo(partido.equipo2);
 
@@ -476,13 +492,15 @@ class SistemaPartidosCompleto {
           }); */
     }
 
-    // inicializar app web y sus respectivos datos
+ 
+
+     //inicializar app web y sus respectivos datos
     async inicializar() {
         await this.cargarEquipos();
         await this.cargarArbitros();
         await this.cargarPartidos();
         this.configurarEventos();
-    }
+    } 
 
     configurarEventos() {
         const formulario = document.querySelector('.formulario');
