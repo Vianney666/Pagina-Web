@@ -23,7 +23,7 @@ if (!$conexion) {
     exit;
 }
 
-// CAMBIO IMPORTANTE: En lugar de DELETE, hacemos UPDATE del estado
+// en lugar de eliminar por completo, hacemos un cambio de estado 
 $sql = "UPDATE arbitro SET estado = 0 WHERE id = ?";
 $stmt = $conexion->prepare($sql);
 

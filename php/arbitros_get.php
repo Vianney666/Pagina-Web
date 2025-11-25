@@ -14,8 +14,8 @@ if (!$conexion) {
     exit;
 }
 
-// CAMBIO: Solo obtener árbitros activos (estado = 1)
-$sql = "SELECT * FROM arbitro WHERE estado = 1 ORDER BY nombre";
+
+$sql = "SELECT * FROM arbitro ORDER BY nombre";
 $resultado = $conexion->query($sql);
 
 if (!$resultado) {
@@ -31,6 +31,6 @@ while ($fila = $resultado->fetch_assoc()) {
 
 echo json_encode($arbitros);
 
-$conexion->close();
+$conexion->close(); 
 
 ?>
