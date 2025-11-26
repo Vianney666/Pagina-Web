@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>Iniciar Sesión</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" required>
+                <span class="error-msg" id="correo-error">Correo inválido</span>
+            </div>
+
+            <div class="input-group password-toggle">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required>
+                <button type="button" class="toggle-btn" id="togglePassword">ver</button>
+                <span class="error-msg" id="password-error">Campo obligatorio</span>
+            </div>
+
+            <button type="submit" class="btn-login">Entrar</button>
+
+            <div class="extra-links">
+                <!--<a href="#">¿Olvidaste tu contraseña?</a><br> -->
+                ¿No tienes cuenta? <a href="../html/Registro.html">Regístrate</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="../javascript/loginn.js"></script>
+
+</body>
+
+</html>
