@@ -54,5 +54,12 @@ CREATE TABLE `users` (
   `numEmpleado` int(15) NOT NULL,
   `correo` varchar(300) NOT NULL,
   `contrasenia` varchar(50) NOT NULL
-)
+);
+
+ALTER TABLE users 
+MODIFY apellidoPaterno VARCHAR(200) NULL;
+
+ALTER TABLE users 
+MODIFY apellidoMaterno VARCHAR(200) NULL;
+
 
