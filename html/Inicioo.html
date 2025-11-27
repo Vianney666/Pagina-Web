@@ -17,7 +17,7 @@
         <h2>Bienvenido a</h2>
         <h1>CANCHIBOL</h1>
         <div class="botones">
-            <a href="../html/Loginn.html" class="btn">Iniciar sesión</a>
+            <a href="../html/Login.html" class="btn">Iniciar sesión</a>
             <a href="../html/Registro.html" class="btn">Registrarse</a>
         </div>
     </div>
@@ -228,5 +228,18 @@
 </footer>
 
 <script src="../javascript/inicio-calendario.js"></script>
+<script src="../javascript/partidos.js"></script>
+
+<script>
+const sistema = new SistemaPartidosCompleto();
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await sistema.cargarEquipos();
+    await sistema.cargarPartidos();
+    sistema.mostrarPartidosInicio();
+});
+</script>
+
+
 </body>
 </html>

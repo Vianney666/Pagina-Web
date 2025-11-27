@@ -1,5 +1,6 @@
 // inicio-calendario.js - Sistema de calendario para página de inicio
 // Este archivo es independiente del sistema de gestión de partidos (calendario.js)
+// Evita doble carga si el sistema principal de partidos ya existe
 
 class CalendarioInicio {
     constructor() {
