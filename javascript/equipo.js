@@ -49,7 +49,7 @@ class ListaEquiposDesactivados {
     }
 }
 
-// Var globales
+// var globales
 let equipos = [];
 let nombresEquipos = [];
 const API_BASE = '../php/equipos';
@@ -208,7 +208,7 @@ function configurarEventos() {
 }
 
 
-async function eliminarEquipo(id) {
+    async function eliminarEquipo(id) {
     const equipo = equipos.find(function (e) { return e.id === id; });
     if (!equipo) {
         mostrarMensaje('Equipo no encontrado');
@@ -219,26 +219,33 @@ async function eliminarEquipo(id) {
         return;
     }
 
-    const formData = new FormData();
-    formData.append('id', id);
+    try {
+        const formData = new FormData();
+        formData.append('id', id);
 
-    const response = await fetch(API_BASE + '_delete.php', {
-        method: 'POST',
-        body: formData
-    });
+        const response = await fetch(API_BASE + '_delete.php', {
+            method: 'POST',
+            body: formData
+        });
 
-    const resultado = await response.json();
+        const resultado = await response.json();
 
-    if (!response.ok || !resultado.success) {
-        throw new Error(resultado.message || 'No se pudo eliminar el equipo');
+        if (!response.ok || !resultado.success) {
+            mostrarMensaje(resultado.message || 'No se pudo eliminar el equipo');
+            return; 
+        }
+
+        listaDesactivados.insertar(equipo);
+
+        await cargarEquipos();
+        await cargarEquiposEliminados();
+
+        actualizarContador();
+        mostrarMensaje('Equipo eliminado correctamente');
+
+    } catch (error) {
+        mostrarMensaje('Error: ' + error.message);
     }
-
-    listaDesactivados.insertar(equipo);
-
-    await cargarEquipos();
-    await cargarEquiposEliminados();
-
-    actualizarContador();
 }
 
 
@@ -463,13 +470,6 @@ function mostrarArregloEnConsola() {
         console.log((index + 1) + '. ID: ' + equipo.id + ' | ' + equipo.nombre);
         console.log('   Representante: ' + equipo.representante + ' | Tel: ' + equipo.telefono);
     });
-
-   /* console.log('Equipos registrados');
-    nombresEquipos.forEach(function (nombre, index) {
-        console.log((index + 1) + '. ' + nombre);
-    }); */
-
-    console.log('Equipos ordenados alfabeticamente usando Insertion Sort');
 }
 
 

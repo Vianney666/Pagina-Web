@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $row = $result->fetch_assoc();
         
         if ($row['count'] > 0) {
-            echo json_encode(['success' => false, 'message' => 'No se puede desactivar el equipo porque está asignado a uno o más partidos']);
+            echo json_encode(['success' => false, 'message' => 'No se puede eliminar el equipo porque está asignado a uno o más partidos.']);
             $stmtCheck->close();
             $conn->close();
             exit;
