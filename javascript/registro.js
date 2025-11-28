@@ -1,3 +1,4 @@
+
 const togglePass1 = document.getElementById('togglePass1');
 const togglePass2 = document.getElementById('togglePass2');
 const pass1 = document.getElementById('password');
@@ -5,11 +6,17 @@ const pass2 = document.getElementById('confirmar');
 
 // funcion mostrar/ocultar contraseñas
 togglePass1.addEventListener('click', () => {
-    pass1.type = pass1.type === 'password' ? 'text' : 'password';
+    const isPassword = pass1.type === 'password';
+    pass1.type = isPassword ? 'text' : 'password';
+    togglePass1.textContent = isPassword ? 'ocultar' : 'ver';
 });
+
 togglePass2.addEventListener('click', () => {
-    pass2.type = pass2.type === 'password' ? 'text' : 'password';
+    const isPassword = pass2.type === 'password';
+    pass2.type = isPassword ? 'text' : 'password';
+    togglePass2.textContent = isPassword ? 'ocultar' : 'ver';
 });
+
 
 const usuario = document.getElementById('usuario');
 const correo = document.getElementById('correo');
@@ -43,6 +50,44 @@ confirmar.addEventListener('input', () => {
     confirmarError.style.display = (confirmar.value === password.value) ? 'none' : 'block';
 });
 
+
+// mensaje de registro exitoso
+function mostrarRegistroExitoso(nombreUsuario) {
+    const pantallaCarga = document.getElementById('pantallaCarga');
+    const mensajeRegistro = document.getElementById('mensajeRegistro');
+    
+    if (pantallaCarga && mensajeRegistro) {
+        mensajeRegistro.textContent = `¡Registro exitoso! Bienvenido ${nombreUsuario} a Canchibol`;
+        pantallaCarga.classList.add('mostrar');
+    }
+}
+
+
+function ocultarPantallaCarga() {
+    const pantallaCarga = document.getElementById('pantallaCarga');
+    if (pantallaCarga) {
+        pantallaCarga.classList.remove('mostrar');
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', ocultarPantallaCarga);
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        ocultarPantallaCarga();
+    }
+});
+
+// control de timeout
+let redireccionTimeout = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (redireccionTimeout) {
+        clearTimeout(redireccionTimeout);
+    }
+    ocultarPantallaCarga();
+});
+
 // fun principal: envio del formulario 
 const form = document.getElementById('registroForm');
 form.addEventListener('submit', async (e) => {
@@ -55,7 +100,6 @@ form.addEventListener('submit', async (e) => {
     correoError.style.display = 'none';
     passwordError.style.display = 'none';
     confirmarError.style.display = 'none';
-
 
     if (!usuario.value.trim()) {
         usuarioError.style.display = 'block';
@@ -96,11 +140,16 @@ form.addEventListener('submit', async (e) => {
             const result = await response.json();
 
             if (result.success) {
-                alert("Registro exitoso. Bienvenido " + usuario.value.trim());
+                mostrarRegistroExitoso(usuario.value.trim());
                 
-                setTimeout(() => {
+                if (redireccionTimeout) {
+                    clearTimeout(redireccionTimeout);
+                }
+                
+                redireccionTimeout = setTimeout(() => {
                     window.location.href = '../html/admin.html';
-                }, 1000);
+                }, 3000);
+                
             } else {
                 alert("Error: " + result.message);
             }

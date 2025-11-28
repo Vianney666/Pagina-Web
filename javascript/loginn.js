@@ -11,26 +11,65 @@ togglePassword.addEventListener('click', () => {
 });
 
 
-const correo = document.getElementById('correo'); 
-const correoError = document.getElementById('correo-error'); 
+const correo = document.getElementById('correo');
+const correoError = document.getElementById('correo-error');
 const passwordError = document.getElementById('password-error');
 
 // validar en tiempo real mientras escribe
 correo.addEventListener('input', () => {
     const correoValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo.value);
     correoError.style.display = correoValido ? 'none' : 'block';
-    correoError.textContent = correoValido ? '' : 'Correo inválido'; 
+    correoError.textContent = correoValido ? '' : 'Correo inválido';
 });
+
 
 password.addEventListener('input', () => {
     passwordError.style.display = password.value.trim() ? 'none' : 'block';
+});
+
+
+// mensaje de bienvenida
+function mostrarBienvenida(nombreUsuario) {
+    const pantallaCarga = document.getElementById('pantallaCarga');
+    const mensajeBienvenida = document.getElementById('mensajeBienvenida');
+
+    if (pantallaCarga && mensajeBienvenida) {
+        mensajeBienvenida.textContent = `Bienvenido al sistema de Canchibol`;
+        pantallaCarga.classList.add('mostrar');
+    }
+}
+
+
+function ocultarPantallaCarga() {
+    const pantallaCarga = document.getElementById('pantallaCarga');
+    if (pantallaCarga) {
+        pantallaCarga.classList.remove('mostrar');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', ocultarPantallaCarga);
+
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+        ocultarPantallaCarga();
+    }
+});
+
+// limpiar cualquier timeout pendiente al cargar la pagina
+let redireccionTimeout = null;
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (redireccionTimeout) {
+        clearTimeout(redireccionTimeout);
+    }
+    ocultarPantallaCarga();
 });
 
 // envio del formulario
 const form = document.getElementById('loginForm');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     let valido = true;
 
     // resetear errores
@@ -50,7 +89,6 @@ form.addEventListener('submit', async (e) => {
         valido = false;
     }
 
-  
     if (valido) {
         try {
             const response = await fetch('../php/login.php', {
@@ -67,13 +105,17 @@ form.addEventListener('submit', async (e) => {
             const result = await response.json();
 
             if (result.success) {
-                alert(`¡Bienvenido ${result.user.nombre}!`);
-                
-                // redirigir a admin.html despues de 1 segundo
-                setTimeout(() => {
+
+                if (redireccionTimeout) {
+                    clearTimeout(redireccionTimeout);
+                }
+
+                mostrarBienvenida(result.user.nombre);
+
+                redireccionTimeout = setTimeout(() => {
                     window.location.href = '../html/admin.html';
-                }, 1000);
-                
+                }, 3000);
+
             } else {
                 alert("Error: " + result.message);
             }
@@ -84,4 +126,3 @@ form.addEventListener('submit', async (e) => {
     }
 });
 
-    
