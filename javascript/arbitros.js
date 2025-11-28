@@ -97,8 +97,10 @@ async function eliminarArbitro(id) {
 async function cargarArbitrosDesdeAPI() {
     try {
         const arbitrosData = await obtenerTodos();
-        mostrarArregloEnConsola(arbitrosData);
-        return arbitrosData;
+        //Solo mostrar arbitros con estado 1 (activos)
+        const arbitrosActivos = arbitrosData.filter(arbitro => Number(arbitro.estado) === 1);
+        mostrarArregloEnConsola(arbitrosActivos);
+        return arbitrosActivos;
     } catch (error) {
         console.error('Error al cargar árbitros:', error);
         return [];
@@ -286,7 +288,7 @@ async function restaurarArbitro(id) {
 }
 
 function actualizarContadorArbitros() {
-    const contador = document.getElementById('contadorArbitrosDesactivados');
+    const contador = document.getElementById('contadorDesactivados');
     const totalDesactivados = arbitrosDesactivados.length;
 
     if (totalDesactivados > 0) {
@@ -343,20 +345,11 @@ async function eliminarArbitroAsync(id) {
         const resultado = await eliminarArbitro(id);
 
         if (resultado.success) {
-            const arbitroEliminado = arbitros.find(a => a.id === id);
-            if (arbitroEliminado) {
-                arbitrosDesactivados.unshift(arbitroEliminado);
-            }
-
             arbitros = await cargarArbitrosDesdeAPI();
             await cargarArbitrosDesactivados();
-
-            if (mostrandoDesactivados) {
-                mostrarArbitrosDesactivados();
-            } else {
-                mostrarArbitros(arbitros);
-            }
-
+            
+            // Actualizar la vista inmediatamente
+            mostrarArbitros(arbitros);
             actualizarContadorArbitros();
             alert('Árbitro eliminado correctamente');
         } else {
