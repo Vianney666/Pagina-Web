@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Árbitros</title>
-  <link rel="stylesheet" href="../css/arbitros.css">
+  <link rel="stylesheet" href="../css/arbitro.css">
   <link rel="stylesheet" href="../css/boton.css">
 </head>
 
@@ -61,6 +61,16 @@
       <button type="button" id="btnCancelar">Cancelar</button>
     </form>
 
+    <!-- barra de busqueda -->
+    <div class="filtro-container">
+      <div class="search-box">
+        <input type="text" id="inputBusqueda" placeholder="Buscar árbitros por nombre, teléfono o email..."
+          class="input-busqueda">
+      </div>
+      <div id="contadorResultados" class="contador-resultados"></div>
+    </div>
+
+
     <div class="tabla-container">
       <table>
         <thead>
@@ -79,11 +89,9 @@
     </div>
   </section>
 
-  <script src="../javascript/arbitros.js"></script>
-
+  <script src="../javascript/arbitro.js"></script>
 
 
 </body>
-
 
 </html>

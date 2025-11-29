@@ -5,6 +5,22 @@ let editandoId = null;
 let mostrandoDesactivados = false;
 
 
+function actualizarVista() {
+    if (mostrandoDesactivados) {
+        mostrarArbitrosDesactivados();
+    } else {
+        mostrarArbitros(arbitros);
+    }
+    actualizarContadorArbitros();
+}
+
+async function recargarDatos() {
+    arbitros = await cargarArbitrosDesdeAPI();
+    await cargarArbitrosDesactivados();
+    actualizarVista();
+}
+
+
 //api
 async function obtenerTodos() {
     try {
@@ -164,6 +180,7 @@ function mostrarArbitros(arbitrosArray) {
 
     if (arbitrosArray.length === 0) {
         tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No hay árbitros registrados</td></tr>';
+        actualizarContadorResultados(0, 0);
         return;
     }
 
@@ -196,6 +213,7 @@ function mostrarArbitros(arbitrosArray) {
         `;
         tbody.appendChild(tr);
     });
+    actualizarContadorResultados(arbitrosArray.length, arbitrosArray.length);
 }
 
 function mostrarArbitrosDesactivados() {
@@ -203,6 +221,7 @@ function mostrarArbitrosDesactivados() {
 
     if (arbitrosDesactivados.length === 0) {
         tbody.innerHTML = '<tr class="arbitro-desactivado"><td colspan="5" style="text-align: center; color: #888; font-style: italic;">No hay árbitros eliminados</td></tr>';
+        actualizarContadorResultados(0, 0);
         return;
     }
 
@@ -225,6 +244,127 @@ function mostrarArbitrosDesactivados() {
             </td>
         </tr>
     `).join('');
+    actualizarContadorResultados(arbitrosDesactivados.length, arbitrosDesactivados.length);
+}
+
+
+// filtrado de busquedas
+function configurarFiltroBusqueda() {
+    const inputBusqueda = document.getElementById('inputBusqueda');
+
+    inputBusqueda.addEventListener('input', function (e) {
+        const termino = e.target.value.toLowerCase().trim();
+        aplicarFiltroBusqueda(termino);
+    });
+
+    const btnAlternar = document.getElementById('btnAlternarVistaArbitros');
+    btnAlternar.addEventListener('click', function () {
+        setTimeout(() => {
+            inputBusqueda.value = '';
+            aplicarFiltroBusqueda('');
+        }, 100);
+    });
+}
+
+function aplicarFiltroBusqueda(termino) {
+    const arbitrosAFiltrar = mostrandoDesactivados ? arbitrosDesactivados : arbitros;
+
+    if (!termino) {
+        actualizarVista();
+        actualizarContadorResultados(arbitrosAFiltrar.length, arbitrosAFiltrar.length);
+        return;
+    }
+
+    const resultados = arbitrosAFiltrar.filter(arbitro =>
+        arbitro.nombre.toLowerCase().includes(termino) ||
+        arbitro.email.toLowerCase().includes(termino) ||
+        arbitro.telefono.includes(termino) ||
+        (arbitro.disponible === 1 && 'disponible'.includes(termino)) ||
+        (arbitro.disponible === 0 && 'no disponible'.includes(termino)) ||
+        (mostrandoDesactivados && 'eliminado'.includes(termino))
+    );
+
+    mostrarResultadosFiltrados(resultados, termino);
+    actualizarContadorResultados(resultados.length, arbitrosAFiltrar.length, termino);
+}
+
+function mostrarResultadosFiltrados(arbitrosFiltrados, terminoBusqueda) {
+    const tbody = document.getElementById('cuerpoTabla');
+
+    if (arbitrosFiltrados.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    <div class="mensaje-no-resultados">
+                        <h3>No se encontraron resultados</h3>
+                        <p>No hay árbitros que coincidan con "<strong>${terminoBusqueda}</strong>"</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    const esVistaDesactivados = mostrandoDesactivados;
+
+    tbody.innerHTML = arbitrosFiltrados.map(arbitro => {
+        const estaDisponible = Number(arbitro.disponible) === 1;
+        const claseEstado = estaDisponible ? 'estado-disponible' : 'estado-no-disponible';
+        const textoEstado = estaDisponible ? 'Disponible' : esVistaDesactivados ? 'Eliminado' : 'No disponible';
+        const claseFila = esVistaDesactivados ? 'arbitro-desactivado' : '';
+
+        return `
+            <tr class="${claseFila}">
+                <td>${resaltarCoincidencia(arbitro.nombre, terminoBusqueda)}</td>
+                <td>${resaltarCoincidencia(arbitro.telefono, terminoBusqueda)}</td>
+                <td>${resaltarCoincidencia(arbitro.email, terminoBusqueda)}</td>
+                <td>
+                    <span class="${claseEstado}">
+                        ${resaltarCoincidencia(textoEstado, terminoBusqueda)}
+                    </span>
+                </td>
+                <td>
+                    <div class="acciones-container">
+                        ${!esVistaDesactivados ? `
+                            <button class="btn-accion btn-editar" onclick="editarArbitro(${arbitro.id})">
+                                Editar
+                            </button>
+                            <button class="btn-accion btn-eliminar" onclick="eliminarArbitroConfirm(${arbitro.id})">
+                                Eliminar
+                            </button>
+                        ` : `
+                            <button class="btn-accion btn-activar" onclick="restaurarArbitro(${arbitro.id})">
+                                Recuperar
+                            </button>
+                        `}
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function resaltarCoincidencia(texto, terminoBusqueda) {
+    if (!terminoBusqueda || !texto) return texto;
+
+    const textoStr = texto.toString();
+    const regex = new RegExp(`(${terminoBusqueda.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return textoStr.replace(regex, '<mark>$1</mark>');
+}
+
+function actualizarContadorResultados(encontrados, total, termino = '') {
+    const contador = document.getElementById('contadorResultados');
+
+    if (!termino) {
+        contador.textContent = `Mostrando ${total} árbitro${total !== 1 ? 's' : ''}`;
+        contador.style.color = '#3A5A40';
+    } else if (encontrados === 0) {
+        contador.textContent = '';
+    } else {
+        contador.textContent = `Encontrado${encontrados !== 1 ? 's' : ''} ${encontrados} 
+        de ${total} árbitro${total !== 1 ? 's' : ''}`;
+        contador.style.color = '#2d5016';
+    }
 }
 
 
@@ -234,15 +374,12 @@ async function alternarVistaArbitros() {
     const btn = document.getElementById('btnAlternarVistaArbitros');
 
     if (mostrandoDesactivados) {
-        await cargarArbitrosDesactivados();
-        mostrarArbitrosDesactivados();
         btn.textContent = 'Volver';
     } else {
-        await cargarArbitrosDesdeAPI();
-        mostrarArbitros(arbitros);
         btn.textContent = 'Eliminado recientemente';
     }
-    actualizarContadorArbitros();
+
+    await recargarDatos();
 }
 
 async function restaurarArbitro(id) {
@@ -267,16 +404,7 @@ async function restaurarArbitro(id) {
         const resultado = await response.json();
 
         if (resultado.success) {
-            arbitrosDesactivados = arbitrosDesactivados.filter(a => a.id !== id);
-            arbitros = await cargarArbitrosDesdeAPI();
-
-            if (mostrandoDesactivados) {
-                mostrarArbitrosDesactivados();
-            } else {
-                mostrarArbitros(arbitros);
-            }
-
-            actualizarContadorArbitros();
+            await recargarDatos();
             alert('Árbitro restaurado correctamente');
         } else {
             throw new Error(resultado.message);
@@ -286,6 +414,7 @@ async function restaurarArbitro(id) {
         alert('Error: ' + error.message);
     }
 }
+
 
 function actualizarContadorArbitros() {
     const contador = document.getElementById('contadorDesactivados');
@@ -297,7 +426,6 @@ function actualizarContadorArbitros() {
         contador.textContent = '';
     }
 }
-
 
 function limpiarFormulario() {
     document.getElementById('formArbitro').reset();
@@ -330,12 +458,11 @@ function editarArbitro(id) {
     }
 }
 
-
 function eliminarArbitroConfirm(id) {
     const idNumero = Number(id);
     const arbitro = arbitros.find(a => a.id === idNumero);
 
-    if (arbitro && confirm('¿Estás seguro de que quieres eliminar al árbitro ' + arbitro.nombre + '?')) {
+    if (arbitro && confirm('¿Desea eliminar al árbitro ' + arbitro.nombre + '?')) {
         eliminarArbitroAsync(idNumero);
     }
 }
@@ -345,12 +472,7 @@ async function eliminarArbitroAsync(id) {
         const resultado = await eliminarArbitro(id);
 
         if (resultado.success) {
-            arbitros = await cargarArbitrosDesdeAPI();
-            await cargarArbitrosDesactivados();
-            
-            // Actualizar la vista inmediatamente
-            mostrarArbitros(arbitros);
-            actualizarContadorArbitros();
+            await recargarDatos();
             alert('Árbitro eliminado correctamente');
         } else {
             throw new Error(resultado.message || 'Error al eliminar árbitro');
@@ -360,6 +482,7 @@ async function eliminarArbitroAsync(id) {
         alert('Error al eliminar árbitro: ' + error.message);
     }
 }
+
 
 // validaciones para el formulario
 function configurarEventosFormulario() {
@@ -407,16 +530,7 @@ async function manejarEnvioFormulario(e) {
             }
         }
 
-        arbitros = await cargarArbitrosDesdeAPI();
-        await cargarArbitrosDesactivados();
-
-        if (mostrandoDesactivados) {
-            mostrarArbitrosDesactivados();
-        } else {
-            mostrarArbitros(arbitros);
-        }
-
-        actualizarContadorArbitros();
+        await recargarDatos();
         limpiarFormulario();
 
     } catch (error) {
@@ -433,15 +547,11 @@ function configurarEventosArbitros() {
     configurarEventosFormulario();
 }
 
-
 async function inicializarArbitros() {
     try {
-        arbitros = await cargarArbitrosDesdeAPI();
-        await cargarArbitrosDesactivados();
-        mostrarArbitros(arbitros);
+        await recargarDatos();
         configurarEventosArbitros();
-        actualizarContadorArbitros();
-
+        configurarFiltroBusqueda();
     } catch (error) {
         console.error('Error al inicializar árbitros:', error);
         alert('Error al cargar los árbitros: ' + error.message);
@@ -451,5 +561,4 @@ async function inicializarArbitros() {
 document.addEventListener('DOMContentLoaded', function () {
     inicializarArbitros();
 });
-
 
