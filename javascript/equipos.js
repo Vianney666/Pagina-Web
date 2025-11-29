@@ -49,6 +49,7 @@ class ListaEquiposDesactivados {
     }
 }
 
+
 // var globales
 let equipos = [];
 let nombresEquipos = [];
@@ -57,22 +58,183 @@ let equipoEditando = null;
 const listaDesactivados = new ListaEquiposDesactivados();
 let mostrandoDesactivados = false;
 
-// Funciones principales
+
+function actualizarVista() {
+    if (mostrandoDesactivados) {
+        mostrarEquiposDesactivados();
+    } else {
+        mostrarEquipos(equipos);
+    }
+    actualizarContador();
+}
+
+async function recargarDatos() {
+    await cargarEquipos();
+    await cargarEquiposEliminados();
+    actualizarVista();
+}
+
+
+// filtro de busquedas
+function configurarFiltroBusqueda() {
+    const inputBusqueda = document.getElementById('inputBusquedaEquipos');
+
+    if (!inputBusqueda) return;
+
+    inputBusqueda.addEventListener('input', function (e) {
+        const termino = e.target.value.toLowerCase().trim();
+        aplicarFiltroBusqueda(termino);
+    });
+
+    // limpiar filtro al cambiar vista
+    const btnAlternar = document.getElementById('btnAlternarVista');
+    if (btnAlternar) {
+        btnAlternar.addEventListener('click', function () {
+            setTimeout(() => {
+                inputBusqueda.value = '';
+                aplicarFiltroBusqueda('');
+            }, 100);
+        });
+    }
+}
+
+function aplicarFiltroBusqueda(termino) {
+    const equiposAFiltrar = mostrandoDesactivados ? listaDesactivados.mostrar() : equipos;
+
+    if (!termino) {
+        actualizarVista();
+        actualizarContadorResultados(equiposAFiltrar.length, equiposAFiltrar.length);
+        return;
+    }
+
+    const resultados = equiposAFiltrar.filter(equipo =>
+        equipo.nombre.toLowerCase().includes(termino) ||
+        equipo.representante.toLowerCase().includes(termino) ||
+        equipo.telefono.includes(termino)
+    );
+
+    mostrarResultadosFiltrados(resultados, termino);
+    actualizarContadorResultados(resultados.length, equiposAFiltrar.length, termino);
+}
+
+function mostrarResultadosFiltrados(equiposFiltrados, terminoBusqueda) {
+    const tbody = document.getElementById('tablaEquipos');
+
+    if (!tbody) return;
+
+    if (equiposFiltrados.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    <div class="mensaje-no-resultados">
+                        <h3>No se encontraron resultados</h3>
+                        <p>No hay equipos que coincidan con "<strong>${terminoBusqueda}</strong>"</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    const esVistaDesactivados = mostrandoDesactivados;
+
+    tbody.innerHTML = equiposFiltrados.map(equipo => {
+        if (esVistaDesactivados) {
+            return `
+                <tr class="equipo-desactivado">
+                    <td>${resaltarCoincidencia(equipo.nombre, terminoBusqueda)}</td>
+                    <td>${resaltarCoincidencia(equipo.representante, terminoBusqueda)}</td>
+                    <td>${resaltarCoincidencia(equipo.telefono, terminoBusqueda)}</td>
+                    <td class="celda-acciones">
+                        <button class="btn-accion btn-activar" onclick="restaurarEquipo(${equipo.id})">
+                            Recuperar
+                        </button>
+                    </td>
+                </tr>
+            `;
+        } else {
+            return `
+                <tr>
+                    <td>${resaltarCoincidencia(equipo.nombre, terminoBusqueda)}</td>
+                    <td>${resaltarCoincidencia(equipo.representante, terminoBusqueda)}</td>
+                    <td>${resaltarCoincidencia(equipo.telefono, terminoBusqueda)}</td>
+                    <td class="celda-acciones">
+                        <button class="btn-accion btn-editar" onclick="editarEquipo(${equipo.id})">Editar</button>
+                        <button class="btn-accion btn-eliminar" onclick="eliminarEquipo(${equipo.id})">Eliminar</button>
+                    </td>
+                </tr>
+            `;
+        }
+    }).join('');
+}
+
+function resaltarCoincidencia(texto, terminoBusqueda) {
+    if (!terminoBusqueda || !texto) return texto;
+
+    const textoStr = texto.toString();
+    const regex = new RegExp(`(${terminoBusqueda.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return textoStr.replace(regex, '<mark>$1</mark>');
+}
+
+function actualizarContadorResultados(encontrados, total, termino = '') {
+    const contador = document.getElementById('contadorResultadosEquipos');
+
+    if (!contador) return;
+
+    if (!termino) {
+        contador.textContent = `Mostrando ${total} equipo${total !== 1 ? 's' : ''}`;
+        contador.style.color = '#3A5A40';
+    } else if (encontrados === 0) {
+        contador.textContent = '';
+    } else {
+        contador.textContent = `Encontrado${encontrados !== 1 ? 's' : ''} ${encontrados} 
+        de ${total} equipo${total !== 1 ? 's' : ''}`;
+        contador.style.color = '#2d5016';
+    }
+}
+
+
+// funciones principales
 async function alternarVista() {
     mostrandoDesactivados = !mostrandoDesactivados;
     const btn = document.getElementById('btnAlternarVista');
 
     if (mostrandoDesactivados) {
-        await cargarEquiposEliminados();
-        mostrarEquiposDesactivados();
         btn.textContent = 'Volver';
     } else {
-        await cargarEquipos();
         btn.textContent = 'Eliminado recientemente';
     }
-    actualizarContador();
+
+    await recargarDatos();
 }
 
+
+function mostrarEquipos(equiposArray) {
+    const tbody = document.getElementById('tablaEquipos');
+    if (!tbody) return;
+
+    tbody.innerHTML = '';
+
+    if (equiposArray.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #454444;">No hay equipos registrados</td></tr>';
+        actualizarContadorResultados(0, 0);
+        return;
+    }
+
+    tbody.innerHTML = equiposArray.map(equipo => `
+        <tr>
+            <td>${equipo.nombre}</td>
+            <td>${equipo.representante}</td>
+            <td>${equipo.telefono}</td>
+            <td class="celda-acciones">
+                <button class="btn-accion btn-editar" onclick="editarEquipo(${equipo.id})">Editar</button>
+                <button class="btn-accion btn-eliminar" onclick="eliminarEquipo(${equipo.id})">Eliminar</button>
+            </td>
+        </tr>
+    `).join('');
+
+    actualizarContadorResultados(equiposArray.length, equiposArray.length);
+}
 
 function mostrarEquiposDesactivados() {
     const equiposDesactivados = listaDesactivados.mostrar();
@@ -80,6 +242,7 @@ function mostrarEquiposDesactivados() {
 
     if (equiposDesactivados.length === 0) {
         tbody.innerHTML = '<tr class="equipo-desactivado"><td colspan="4" style="text-align: center; color: #888; font-style: italic;">No hay equipos eliminados</td></tr>';
+        actualizarContadorResultados(0, 0);
         return;
     }
 
@@ -95,6 +258,43 @@ function mostrarEquiposDesactivados() {
             </td>
         </tr>
     `).join('');
+
+    actualizarContadorResultados(equiposDesactivados.length, equiposDesactivados.length);
+}
+
+
+async function eliminarEquipo(id) {
+    const equipo = equipos.find(e => e.id === id);
+    if (!equipo) {
+        mostrarMensaje('Equipo no encontrado');
+        return;
+    }
+
+    if (!confirm('¿Estas seguro de eliminar al equipo ' + equipo.nombre + '?')) {
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('id', id);
+
+        const response = await fetch(API_BASE + '_delete.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const resultado = await response.json();
+
+        if (!response.ok || !resultado.success) {
+            mostrarMensaje(resultado.message || 'No se pudo eliminar el equipo');
+            return;
+        }
+        await recargarDatos();
+        mostrarMensaje('Equipo eliminado correctamente');
+
+    } catch (error) {
+        mostrarMensaje('Error: ' + error.message);
+    }
 }
 
 
@@ -126,14 +326,8 @@ async function restaurarEquipo(id) {
             throw new Error(resultado.message || 'Error al restaurar el equipo');
         }
 
-        await cargarEquipos();
-        await cargarEquiposEliminados();
-
-        if (mostrandoDesactivados) {
-            mostrarEquiposDesactivados();
-        }
-
-        actualizarContador();
+        await recargarDatos();
+        mostrarMensaje('Equipo restaurado correctamente');
 
     } catch (error) {
         mostrarMensaje('Error: ' + error.message);
@@ -179,10 +373,11 @@ async function cargarEquiposEliminados() {
 
 async function inicializarEquipos() {
     try {
-        await cargarEquipos();
-        await cargarEquiposEliminados();
+        await recargarDatos();
         configurarEventos();
-        actualizarContador();
+        configurarFiltroBusqueda();
+        actualizarContadorResultados(equipos.length, equipos.length);
+
     } catch (error) {
         console.error('Error al inicializar equipos:', error);
         mostrarMensaje('Error al cargar los datos: ' + error.message);
@@ -208,74 +403,6 @@ function configurarEventos() {
 }
 
 
-    async function eliminarEquipo(id) {
-    const equipo = equipos.find(function (e) { return e.id === id; });
-    if (!equipo) {
-        mostrarMensaje('Equipo no encontrado');
-        return;
-    }
-
-    if (!confirm('¿Estas seguro de eliminar al equipo ' + equipo.nombre + '?')) {
-        return;
-    }
-
-    try {
-        const formData = new FormData();
-        formData.append('id', id);
-
-        const response = await fetch(API_BASE + '_delete.php', {
-            method: 'POST',
-            body: formData
-        });
-
-        const resultado = await response.json();
-
-        if (!response.ok || !resultado.success) {
-            mostrarMensaje(resultado.message || 'No se pudo eliminar el equipo');
-            return; 
-        }
-
-        listaDesactivados.insertar(equipo);
-
-        await cargarEquipos();
-        await cargarEquiposEliminados();
-
-        actualizarContador();
-        mostrarMensaje('Equipo eliminado correctamente');
-
-    } catch (error) {
-        mostrarMensaje('Error: ' + error.message);
-    }
-}
-
-
-function mostrarEquipos(equiposArray) {
-    const tbody = document.getElementById('tablaEquipos');
-    if (!tbody) return;
-
-    tbody.innerHTML = '';
-
-    if (equiposArray.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #454444;">No hay equipos registrados</td></tr>';
-        return;
-    }
-
-    tbody.innerHTML = equiposArray.map(function (equipo) {
-        return `
-            <tr>
-                <td>${equipo.nombre}</td>
-                <td>${equipo.representante}</td>
-                <td>${equipo.telefono}</td>
-                <td class="celda-acciones">
-                    <button class="btn-accion btn-editar" onclick="editarEquipo(${equipo.id})">Editar</button>
-                    <button class="btn-accion btn-eliminar" onclick="eliminarEquipo(${equipo.id})">Eliminar</button>
-                </td>
-            </tr>
-        `;
-    }).join('');
-}
-
-
 async function manejarEnvioFormulario(e) {
     e.preventDefault();
 
@@ -296,7 +423,7 @@ async function manejarEnvioFormulario(e) {
         }
 
         limpiarFormulario();
-        await cargarEquipos();
+        await recargarDatos();
 
     } catch (error) {
         mostrarMensaje('Error: ' + error.message);
@@ -336,8 +463,8 @@ async function cargarEquipos() {
     }
 }
 
-
 async function crearEquipo(nombre, representante, telefono) {
+
     const conflictoNombre = verificarNombreEquipo(nombresEquipos, 0, nombre.toLowerCase(), null);
     if (conflictoNombre.conflicto) {
         throw new Error('Ya existe un equipo con ese nombre');
@@ -359,11 +486,13 @@ async function crearEquipo(nombre, representante, telefono) {
         throw new Error(resultado.message || 'Error al crear equipo');
     }
 
+    await recargarDatos();
     mostrarMensaje('Equipo creado correctamente');
 }
 
 
 async function actualizarEquipo(id, nombre, representante, telefono) {
+
     const conflictoNombre = verificarNombreEquipo(nombresEquipos, 0, nombre.toLowerCase(), id);
     if (conflictoNombre.conflicto) {
         throw new Error('Ese nombre está en uso');
@@ -386,6 +515,8 @@ async function actualizarEquipo(id, nombre, representante, telefono) {
         throw new Error(resultado.message || 'Error al actualizar información');
     }
 
+    // ACTUALIZACIÓN DESPUÉS del éxito (como árbitros)
+    await recargarDatos();
     mostrarMensaje('Informacion actualizada correctamente');
 }
 

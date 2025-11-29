@@ -52,6 +52,19 @@
             <button type="button" id="btnCancelar" style="display: none;">Cancelar</button>
         </form>
 
+         <!-- barra de busqueda -->
+         <div class="filtro-container">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="inputBusquedaEquipos" 
+                    placeholder="Buscar equipos por nombre, representante o teléfono..."
+                    class="input-busqueda"
+                >
+            </div>
+            <div id="contadorResultadosEquipos" class="contador-resultados"></div>
+        </div>
+
         <div id="mensajeEstado" class="mensaje-estado" style="display: none;"></div>
 
         <table>
@@ -69,7 +82,7 @@
         </table>
     </section>
 
-    <script src="../javascript/equipo.js"></script>
+    <script src="../javascript/equipos.js"></script>
 
 </body>
 
