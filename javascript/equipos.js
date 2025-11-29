@@ -515,7 +515,6 @@ async function actualizarEquipo(id, nombre, representante, telefono) {
         throw new Error(resultado.message || 'Error al actualizar información');
     }
 
-    // ACTUALIZACIÓN DESPUÉS del éxito (como árbitros)
     await recargarDatos();
     mostrarMensaje('Informacion actualizada correctamente');
 }
