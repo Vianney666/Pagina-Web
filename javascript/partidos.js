@@ -329,7 +329,7 @@ llenarDropdownArbitros() {
             tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay partidos programados</td></tr>';
             return;
         }
-
+            /*----------------------------------------------------------------------------------------*/
         partidosOrdenados.forEach(partido => {
             const tr = document.createElement('tr');
 
@@ -350,39 +350,6 @@ llenarDropdownArbitros() {
         `;
             tbody.appendChild(tr);
         });
-    }
-        /*esta funcion es para mi tabla de inicio*/
-       mostrarPartidosInicio() {
-    const tbody = document.querySelector('.tabla-partidos tbody');
-    tbody.innerHTML = '';
-
-    const partidos = this.listaPartidos.toArray();
-
-    if (partidos.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="5" style="text-align:center;">No hay partidos programados</td>
-            </tr>
-        `;
-        return;
-    }
-
-    partidos.forEach((p, index) => {
-        const tr = document.createElement('tr');
-
-        const equipo1 = this.obtenerNombreEquipo(p.equipo1);
-        const equipo2 = this.obtenerNombreEquipo(p.equipo2);
-        const hora = p.hora.substring(0, 5);
-
-        tr.innerHTML = `
-            <td>${index + 1}. ID: ${p.id}</td>
-            <td>${p.fecha} ${hora}</td>
-            <td>${equipo1} vs ${equipo2}</td>
-            <td>${p.cancha}</td>
-        `;
-
-        tbody.appendChild(tr);
-    });
 }
 
 

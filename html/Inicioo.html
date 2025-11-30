@@ -21,206 +21,29 @@
             <a href="../html/Registro.html" class="btn">Registrarse</a>
         </div>
     </div>
-
-    <div class="encabezado" id="encabezado-calendario">
-        <h2>Próximos partidos</h2>
-
-        <div class="calendario">
-            <ul class="pj_lista">
-                <!-- Se llenará dinámicamente desde JavaScript -->
-            </ul>
-        </div>
-
-        <!-- DÍA ACTUAL -->
-        <section class="dia_actual">
-            <div class="fecha_actual">
-                <div class="hoja_cal">
-                    <span class="hc_top">NOV</span>
-                    <span class="hc_day">7</span>
-                </div>
-                <div class="pj_info">
-                    <div class="titulo_dia">hoy viernes</div>
-                    <div class="partidos_programados">2 partidos programados</div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- TABLAS DE JUEGOS - Se generarán dinámicamente para los próximos 7 días -->
-    <section class="tabla_de_juegos" id="tabla-dia1">
+    <section class="tabla_de_juegos">
         <div class="contenedor-tabla modulo">
             <h2>CALENDARIO DE PARTIDOS</h2>
 
-            <div class="seccion-estadio">
-                <h1 class="nombre-estadio"></h1>
-                <h2 class="fecha-estadio"></h2>
-                <table class="tabla-partidos">
-                    <thead>
-                        <tr>
-                            <th>HORA</th>
+               <table class="tabla-partidos">
+                <thead>
+                     <tr>
+                         <th>HORA</th>
                             <th>EQUIPO LOCAL</th>
-                            <th></th>
+                            <th>vs</th>
                             <th>EQUIPO VISITANTE</th>
                             <th>CAMPO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Se llenará dinámicamente -->
-                    </tbody>
+                     </tr>
+                </thead>
+                <tbody>
+               <!-- los partidos tmb se cargaran dinamicamente desde la bd-->
+                 </tbody>
                 </table>
+    </section>
             </div>
         </div>
     </section>
 
-    <section class="tabla_de_juegos" id="tabla-dia2" style="display: none;">
-        <div class="contenedor-tabla modulo">
-            <h2>CALENDARIO DE PARTIDOS</h2>
-
-            <div class="seccion-estadio">
-                <h1 class="nombre-estadio"></h1>
-                <h2 class="fecha-estadio"></h2>
-                <table class="tabla-partidos">
-                    <thead>
-                        <tr>
-                            <th>HORA</th>
-                            <th>EQUIPO LOCAL</th>
-                            <th></th>
-                            <th>EQUIPO VISITANTE</th>
-                            <th>CAMPO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Se llenará dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section class="tabla_de_juegos" id="tabla-dia3" style="display: none;">
-        <div class="contenedor-tabla modulo">
-            <h2>CALENDARIO DE PARTIDOS</h2>
-
-            <div class="seccion-estadio">
-                <h1 class="nombre-estadio"></h1>
-                <h2 class="fecha-estadio"></h2>
-                <table class="tabla-partidos">
-                    <thead>
-                        <tr>
-                            <th>HORA</th>
-                            <th>EQUIPO LOCAL</th>
-                            <th></th>
-                            <th>EQUIPO VISITANTE</th>
-                            <th>CAMPO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Se llenará dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section class="tabla_de_juegos" id="tabla-dia4" style="display: none;">
-        <div class="contenedor-tabla modulo">
-            <h2>CALENDARIO DE PARTIDOS</h2>
-
-            <div class="seccion-estadio">
-                <h1 class="nombre-estadio"></h1>
-                <h2 class="fecha-estadio"></h2>
-                <table class="tabla-partidos">
-                    <thead>
-                        <tr>
-                            <th>HORA</th>
-                            <th>EQUIPO LOCAL</th>
-                            <th></th>
-                            <th>EQUIPO VISITANTE</th>
-                            <th>CAMPO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Se llenará dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section class="tabla_de_juegos" id="tabla-dia5" style="display: none;">
-        <div class="contenedor-tabla modulo">
-            <h2>CALENDARIO DE PARTIDOS</h2>
-
-            <div class="seccion-estadio">
-                <h1 class="nombre-estadio"></h1>
-                <h2 class="fecha-estadio"></h2>
-                <table class="tabla-partidos">
-                    <thead>
-                        <tr>
-                            <th>HORA</th>
-                            <th>EQUIPO LOCAL</th>
-                            <th></th>
-                            <th>EQUIPO VISITANTE</th>
-                            <th>CAMPO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Se llenará dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section class="tabla_de_juegos" id="tabla-dia6" style="display: none;">
-        <div class="contenedor-tabla modulo">
-            <h2>CALENDARIO DE PARTIDOS</h2>
-
-            <div class="seccion-estadio">
-                <h1 class="nombre-estadio"></h1>
-                <h2 class="fecha-estadio"></h2>
-                <table class="tabla-partidos">
-                    <thead>
-                        <tr>
-                            <th>HORA</th>
-                            <th>EQUIPO LOCAL</th>
-                            <th></th>
-                            <th>EQUIPO VISITANTE</th>
-                            <th>CAMPO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Se llenará dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section class="tabla_de_juegos" id="tabla-dia7" style="display: none;">
-        <div class="contenedor-tabla modulo">
-            <h2>CALENDARIO DE PARTIDOS</h2>
-
-            <div class="seccion-estadio">
-                <h1 class="nombre-estadio"></h1>
-                <h2 class="fecha-estadio"></h2>
-                <table class="tabla-partidos">
-                    <thead>
-                        <tr>
-                            <th>HORA</th>
-                            <th>EQUIPO LOCAL</th>
-                            <th></th>
-                            <th>EQUIPO VISITANTE</th>
-                            <th>CAMPO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Se llenará dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
 </main>
 
 <footer>
@@ -228,17 +51,6 @@
 </footer>
 
 <script src="../javascript/inicio-calendario.js"></script>
-<script src="../javascript/partidos.js"></script>
-
-<script>
-const sistema = new SistemaPartidosCompleto();
-
-document.addEventListener('DOMContentLoaded', async () => {
-    await sistema.cargarEquipos();
-    await sistema.cargarPartidos();
-    sistema.mostrarPartidosInicio();
-});
-</script>
 
 
 </body>
