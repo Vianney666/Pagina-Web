@@ -62,4 +62,10 @@ MODIFY apellidoPaterno VARCHAR(200) NULL;
 ALTER TABLE users 
 MODIFY apellidoMaterno VARCHAR(200) NULL;
 
+ALTER TABLE users 
+ADD PRIMARY KEY (numEmpleado);
+
+ALTER TABLE users 
+MODIFY numEmpleado INT(15) NOT NULL AUTO_INCREMENT;
+
 
